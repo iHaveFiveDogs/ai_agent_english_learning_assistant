@@ -5316,3 +5316,1751 @@ Time: 2025-05-01 22:43:15.187527
 Content: vcs
 Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
 
+Time: 2025-05-02 14:14:50.455325
+Content: cytolysis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:50.455505
+Content: lymphocyte
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:50.455640
+Content: dacryocyst
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:50.455734
+Content: cystomy
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:50.455806
+Content: cranioclasis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:50.455894
+Content: craniomalacia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:50.455993
+Content: counterpoison
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:50.456064
+Content: counteragent
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:50.456136
+Content: contraindication
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:50.456220
+Content: colposcope
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:51.469908
+Content: coleospastia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:51.470498
+Content: coloptosis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:51.470977
+Content: colotomy
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:51.471554
+Content: coagulant
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:51.471932
+Content: circumoral
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:51.472401
+Content: aborticide
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:51.472911
+Content: germicide
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:51.473376
+Content: cytochrome
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:51.473685
+Content: chondrification
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:51.474008
+Content: chondrosarcoma
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:52.476658
+Content: cholecystitis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:52.477424
+Content: cholelithiasis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:52.477985
+Content: cholagogue
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:52.478351
+Content: cholangiectasis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:52.479055
+Content: cholangitis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:52.479708
+Content: chloromycetin
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:52.480302
+Content: cerebrology
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:52.480834
+Content: cerebritis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:52.481264
+Content: cerebellitis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:52.481639
+Content: cephalotomy
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:53.486481
+Content: cephalopathy
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:53.487235
+Content: cephaloxia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:53.487824
+Content: abdominocentesis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:53.488298
+Content: arthrocentesis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:53.488739
+Content: celioscopy
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:53.489277
+Content: celialgia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:53.489856
+Content: ophthalmocele
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:53.490175
+Content: hysterocele
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:53.490452
+Content: omphalocele
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:53.490690
+Content: cardioplasty
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:54.498193
+Content: cardiotonics
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:54.498728
+Content: carcinogen
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:54.498997
+Content: carbohaemia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:54.499221
+Content: calcicosilicosis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:54.499526
+Content: calcification
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:54.499926
+Content: bronchiolectasis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:54.500170
+Content: bronchiostenosis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:54.500374
+Content: bronchoscopy
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:54.500581
+Content: bradypsychia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:54.500847
+Content: bradycardia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:55.511296
+Content: brachydactylia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:55.512489
+Content: brachypnea
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:55.513469
+Content: osteoblast
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:55.514428
+Content: melanoblast
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:55.515135
+Content: spermatoblast
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:55.515637
+Content: bilirubin
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:55.515973
+Content: bicuspid
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:55.516322
+Content: baryacusia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:55.516541
+Content: barylalia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:55.516731
+Content: baroreceptor
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:56.524526
+Content: bactericide
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:56.525118
+Content: bacteriology
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:56.525551
+Content: bacilluria
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:56.525939
+Content: bacillosis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:56.526402
+Content: audiometer
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:56.526749
+Content: audiology
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:56.527001
+Content: neurasthenia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:56.527299
+Content: myasthenia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:56.527894
+Content: proteinase
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:14:56.528478
+Content: oxidase
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:53.702377
+Content: cytolysis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:53.702530
+Content: lymphocyte
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:53.702618
+Content: dacryocyst
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:53.702848
+Content: cystomy
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:53.702965
+Content: cranioclasis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:53.703051
+Content: craniomalacia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:53.703169
+Content: counterpoison
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:53.703284
+Content: counteragent
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:53.703393
+Content: contraindication
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:53.703510
+Content: colposcope
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:54.709418
+Content: coleospastia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:54.710110
+Content: coloptosis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:54.710666
+Content: colotomy
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:54.711041
+Content: coagulant
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:54.711672
+Content: circumoral
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:54.712241
+Content: aborticide
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:54.712798
+Content: germicide
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:54.713844
+Content: cytochrome
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:54.714534
+Content: chondrification
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:54.714833
+Content: chondrosarcoma
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:55.722913
+Content: cholecystitis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:55.723551
+Content: cholelithiasis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:55.723925
+Content: cholagogue
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:55.724243
+Content: cholangiectasis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:55.724528
+Content: cholangitis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:55.724826
+Content: chloromycetin
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:55.725232
+Content: cerebrology
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:55.725899
+Content: cerebritis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:55.726368
+Content: cerebellitis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:17:55.726762
+Content: cephalotomy
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:22.688824
+Content: cytolysis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:22.688996
+Content: lymphocyte
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:22.689108
+Content: dacryocyst
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:22.689224
+Content: cystomy
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:22.689293
+Content: cranioclasis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:22.689357
+Content: craniomalacia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:22.689440
+Content: counterpoison
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:22.689526
+Content: counteragent
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:22.689670
+Content: contraindication
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:22.689756
+Content: colposcope
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:23.692851
+Content: coleospastia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:23.693068
+Content: coloptosis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:23.693183
+Content: colotomy
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:23.693402
+Content: coagulant
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:23.693600
+Content: circumoral
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:23.693786
+Content: aborticide
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:23.693912
+Content: germicide
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:23.694022
+Content: cytochrome
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:23.694117
+Content: chondrification
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:23.694250
+Content: chondrosarcoma
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:24.703072
+Content: cholecystitis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:24.703586
+Content: cholelithiasis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:24.703922
+Content: cholagogue
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:24.704416
+Content: cholangiectasis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:24.704848
+Content: cholangitis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:24.705139
+Content: chloromycetin
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:24.705388
+Content: cerebrology
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:24.705619
+Content: cerebritis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:24.705896
+Content: cerebellitis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:24.706167
+Content: cephalotomy
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:25.711021
+Content: cephalopathy
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:25.711185
+Content: cephaloxia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:25.711266
+Content: abdominocentesis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:25.711337
+Content: arthrocentesis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:25.711424
+Content: celioscopy
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:25.711560
+Content: celialgia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:25.711658
+Content: ophthalmocele
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:25.711789
+Content: hysterocele
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:25.711874
+Content: omphalocele
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:25.711961
+Content: cardioplasty
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:26.725303
+Content: cardiotonics
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:26.725923
+Content: carcinogen
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:26.726291
+Content: carbohaemia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:26.726548
+Content: calcicosilicosis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:26.726742
+Content: calcification
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:26.726891
+Content: bronchiolectasis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:26.727041
+Content: bronchiostenosis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:26.727143
+Content: bronchoscopy
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:26.727233
+Content: bradypsychia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:26.727350
+Content: bradycardia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:27.737803
+Content: brachydactylia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:27.738147
+Content: brachypnea
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:27.738362
+Content: osteoblast
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:27.738599
+Content: melanoblast
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:27.738873
+Content: spermatoblast
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:27.739101
+Content: bilirubin
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:27.739353
+Content: bicuspid
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:27.739487
+Content: baryacusia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:27.739613
+Content: barylalia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:27.739759
+Content: baroreceptor
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:28.751775
+Content: bactericide
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:28.751918
+Content: bacteriology
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:28.751996
+Content: bacilluria
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:28.752078
+Content: bacillosis
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:28.752142
+Content: audiometer
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:28.752204
+Content: audiology
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:28.752348
+Content: neurasthenia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:28.752469
+Content: myasthenia
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:28.752551
+Content: proteinase
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:23:28.752620
+Content: oxidase
+Error: name 'batch_ipa_chain' is not defined
+
+Time: 2025-05-02 14:56:11.192913
+Content: [{"word": "enema", "ipa": "/inim/", "etymology": "From Greek enaima, from enaioun, to put up in place or within; akin to Latin intus- 'in'"}, {"word": "hemodialysis", "ipa": "/hmoda.l.ss/", "etymology": "From Greek haima 'blood' + dialusis, sifting + -sis, action or process"}, {"word": "dialysis", "ipa": "/da.la.ss/", "etymology": "From Greek dialusis, sifting + -sis, action or process"}, {"word": "", "ipa": "/ts.wi/", "etymology": "Mandarin Chinese for 'word'"}, {"word": "disinfection", "ipa": "/ds.nfk.n/", "etymology": "From Latin dis- 'apart, asunder' + inficere 'to infect'"}, {"word": "asepsis", "ipa": "/sp.ss/", "etymology": "From Greek a-, without + sepsis 'inflammation or infection'"}, {"word": "catheterization", "ipa": "/k.tr.izn/", "etymology": "From Latin catheter, tube + -ization, action or process"}, {"word": "shaving", "ipa": "/ev./", "etymology": "Old English scavean, from Proto-Germanic *skebn}, akin to shavings, chips"}, {"word": "bathing", "ipa": "/b./", "etymology": "Old English ban 'bathe' from Proto-Germanic *baitan, from Latin balneus 'tub'}, {"word": "bedmaking", "ipa": "/bd.mek./", "etymology": "From Old English bed 'bed' + making 'process of making'"}]
+Error: Expecting ',' delimiter: line 1 column 1083 (char 1082)
+
+Time: 2025-05-02 14:56:27.628988
+Content: { "word": "\u4e8c\u4f86", "ipa": "/tsa\_wt/, /dn\_wt/", "etymology": "Chinese:  (dn, 'one') +  (c, 'word')." } Word:  { "word": "\u8bed", "ipa": "/y\_l/", "etymology": "Chinese:  (y, 'speech') +  (yn, 'words')." } Word:  { "word": "\u824b\u6587", "ipa": "/\_dz/", "etymology": "Chinese:  (Yng, 'English') +  (y, 'language')." }
+Error: Invalid \escape: line 1 column 39 (char 38)
+
+Time: 2025-05-02 14:56:27.630152
+Content: µ¥´Ê
+Error: cannot access local variable 'e' where it is not associated with a value
+
+Time: 2025-05-02 14:57:00.425845
+Content: [{"word": "homatropine", "ipa": "/hmtrpn/", "etymology": "From Greek homs (same) + tropn (turning)"}, {"word": "urokinase", "ipa": "/yroknez/", "etymology": "From Latin uropodia (urinary podia) + -kinase, enzyme suffix"}, {"word": "lysozyme", "ipa": "/lszmin/", "etymology": "From Greek lsis (dissolving) + -zyme, enzyme suffix"}, {"word": "hyaluronidase", "ipa": "/hai.ljurndez/", "etymology": "From Greek hulron (gluey substance in the vitreous humor of the eye) + -uronic acid + -ase, enzyme suffix"}, {"word": "aprotinin", "ipa": "/prtnn/", "etymology": "From Greek a- (not) + protein + -inin, forming adjective"}, {"word": "tolbutamide", "ipa": "/tlbutamd/", "etymology": "From Greek tolbs (fatty) + butylamine + -amide"}, {"word": "phenformin", "ipa": "/finfrmn/", "etymology": "From phenyl (aromatic hydrocarbon group) + formimidoyl, a compound of formic acid and urea"}, {"word": "propylthiouracil", "ipa": "/prplrasl/", "etymology": "From propyl (3-carbon alkyl group) + thyroid + -ouracil, a derivative of uracil"}, {"word": "glibenclamide", "ipa": "/glbnklmd/", "etymology": "From glibenclamide (combining form)"}, {"word": "vincristine", "ipa": "/vnkrstn/", "etymology": "From Latin vincere (to conquer) + Greek khrsis (winnowing)}]
+Error: Unterminated string starting at: line 1 column 1184 (char 1183)
+
+Time: 2025-05-02 15:14:19.768337
+Content: [{"word": "antarctic", "ipa": "/ntrktk/", "etymology": "From Latin Antarticus, from antarius 'opposite the ARK' (of the constellation Argo Navis)"}, {"word": "byzantine", "ipa": "/bzntn/", "etymology": "From Greek Byzantion, originally a term for a Thracian tribe in the region, derived from bous 'ox' and anthemon 'flower', hence 'cow-village'"}, {"word": "abnegate", "ipa": "/bniet/", "etymology": "From Latin abnegare 'to deny oneself, to disown, to renounce'}, {"word": "abnegation", "ipa": "/bnen/", "etymology": "From Latin negatio, from negare 'deny'"}, {"word": "abrade", "ipa": "/brd/", "etymology": "From Latin abradere 'to grind away, to wear down'}, {"word": "abscission", "ipa": "/bskn/", "etymology": "From Latin scissus, past participle of scindo 'cut'"}, {"word": "abstemious", "ipa": "/bstms/", "etymology": "From Latin abstemius 'self-restrained, continent, temperate'}, {"word": "abstentious", "ipa": "/bstens/", "etymology": "Mistake or misspelling. Correct spelling is 'abstinent'"}, {"word": "abstruse", "ipa": "/bstrrs/", "etymology": "From Latin abstrusus, past participle of astrueo 'to conceal, hide'}]
+Error: Expecting ',' delimiter: line 1 column 468 (char 467)
+
+Time: 2025-05-02 15:23:33.103025
+Content: [{"word": "hedonic", "ipa": "/hdnk/", "etymology": "From Greek hdoniks, from hdon pleasure"}, {"word": "heliotrope", "ipa": "/hlitrp/", "etymology": "From Greek hliotrpos, from hlios sun + tropos turning"}, {"word": "helot", "ipa": "/hlt/", "etymology": "From Ancient Greek hlts, servant or slave of Sparta"}, {"word": "helve", "ipa": "/hlv/", "etymology": "Old English helfa, from hale to strike, hit"}, {"word": "hem", "ipa": "/hm/", "etymology": "From Old English heom (dative case of heah high), used as a space marker in written texts"}, {"word": "hemostat", "ipa": "/hmst/", "etymology": "From Greek haima blood + statsis a standing still"}, {"word": "henpecked", "ipa": "/hnpkd/", "etymology": "Origin unknown but possibly from the image of a hen pecking at a piece of bread. Used to describe a man dominated by his wife."}, {"word": "herbaceous", "ipa": "/hrbes/", "etymology": "From Latin herba grass, herb + -aceus relating to"}, {"word": "herbicide", "ipa": "/hrbdd/", "etymology": "From Latin herba herb + -icide killing"}, {"word": "herdsman", "ipa": "/hdzmn/", "etymology": "Old English hrde scythe + man (from hrde, a cutting instrument used for cutting grass or grain)}]
+Error: Unterminated string starting at: line 1 column 1089 (char 1088)
+
+Time: 2025-05-02 15:24:12.709271
+Content: [{"word": "herpetologist", "ipa": "/hrptljist/", "etymology": "From Greek herpeton, a creeping animal + -logia, study"}, {"word": "hidebound", "ipa": "/hadband/", "etymology": "Old English hygebeag, from hyge, hide + beag, band"}, {"word": "hie", "ipa": "/ha/", "etymology": "From Old English han"}, {"word": "histology", "ipa": "/histldi/", "etymology": "From Greek histos, tissue + -logia, study"}, {"word": "holograph", "ipa": "/hlgrafs/", "etymology": "From Greek holografs, writer of the whole, from hlos, whole + grphein, to write"}, {"word": "homiletics", "ipa": "/hmaltks/", "etymology": "From Greek homilia, a sermon, from homilos, similar, like}, {"word": "homograph", "ipa": "/homgraf/", "etymology": "From Greek homographs, having the same writing, from graphein, to write + -graphos"}, {"word": "honorarium", "ipa": "/hnrrim/", "etymology": "Latin honorarium, a reward for services rendered, from honos, honor + arare, to plow (i.e., cultivate or earn)"}, {"word": "horology", "ipa": "/hrldi/", "etymology": "From Greek hor, hour + -logia, study"} ] {"word": "hortative", "ipa": "/httv/", "etymology": "Latin hortativus, urging or exhorting, from hortor, I encourage or exhort"}]
+Error: Expecting ',' delimiter: line 1 column 660 (char 659)
+
+Time: 2025-05-02 15:25:08.963271
+Content: [{"word": "illuminati", "ipa": "/l.mn..ti/", "etymology": "From Latin illuminatus, past participle of illuminare, meaning to enlighten or make clear"}, {"word": "immanent", "ipa": "/mmnt/", "etymology": "From Latin immanere, meaning to stay within"}, {"word": "immemorial", "ipa": "/m.mrml/", "etymology": "From Latin memor meaning 'mindful,' and -ial, used to form adjectives denoting relating to something specified"}, {"word": "imperious", "ipa": "/m.prs/", "etymology": "From Latin imperium, meaning command or power"}, {"word": "impermanent", "ipa": "/m.prman.nt/", "etymology": "From Latin permanere, meaning to last or continue"}, {"word": "impermeability", "ipa": "/m.prmi.blti/", "etymology": "From Latin permeare, meaning to pass through, and -ability, used to form nouns denoting ability"}, {"word": "impresario", "ipa": "/m.prajo/", "etymology": "From Italian impresario della musica, from impresa (meaning enterprise) + -ario (a suffix forming names of owners or proprietors)"}, {"word": "impressed", "ipa": "/m.prest/", "etymology": "From past participle of impress (to press in or into a form, to make an impression on something)"}, {"word": "improvident", "ipa": "/m.prvdnt/", "etymology": "From Latin improvidus, meaning not prudent, careless"}, {"word": "improvised", "ipa": "/m.prvaizd/", "etymology": "From past participle of improvise (to make or do something without prior plans)}]
+Error: Unterminated string starting at: line 1 column 1322 (char 1321)
+
+Time: 2025-05-02 15:28:29.007159
+Content: [{"word": "mistral", "ipa": "/mstral/", "etymology": "From Provenal, from Latin mistrare 'to mix'"}, {"word": "mnemonics", "ipa": "/mnmnks/", "etymology": "From Greek mnemone 'reminiscence' + -ikos 'pertaining to'"}, {"word": "monocle", "ipa": "/mnkl/", "etymology": "From French monocle, from Modern Latin monoptlon 'single sight'"}, {"word": "monograph", "ipa": "/mnraf/", "etymology": "From Greek monos 'alone, single' + graph 'writing'"}, {"word": "monomania", "ipa": "/mnmani/", "etymology": "From Ancient Greek mono- 'single' + mania 'madness'"}, {"word": "motile", "ipa": "/motl/", "etymology": "From Latin mobilis, from move 'to move'"}, {"word": "motility", "ipa": "/mtlti/", "etymology": "From Latin motus 'movement' + -ility"}, {"word": "mottle", "ipa": "/mtl/", "etymology": "From Old English matol 'spotted mark'"}, {"word": "mulish", "ipa": "/ml/", "etymology": "From Middle English mulissh, from Anglo-Norman muleis, from Latin mulus 'mule'"}, {"word": "multifarious", "ipa": "/mltfars/", "etymology": "From Latin multus 'many' + farious 'different'}]
+Error: Unterminated string starting at: line 1 column 1018 (char 1017)
+
+Time: 2025-05-02 15:32:39.718578
+Content: [{"word": "reedy", "ipa": "/ridi/", "etymology": "Old English riede"}, {"word": "refractory", "ipa": "/rfrktri/", "etymology": "From Latin refractus, past participle of refringere, from re- + fringere 'break'"}, {"word": "refulgent", "ipa": "/rfljnt/", "etymology": "Latin fulgere 'shine brightly'"}, {"word": "regressive", "ipa": "/rigrsiv/", "etymology": "From Latin regredi 'go back', from re- + gradi 'step'"}, {"word": "relenting", "ipa": "/rlennt/", "etymology": "Old English relencan 'loosen up'"}, {"word": "reminisce", "ipa": "/rmnsns/", "etymology": "From Latin memorare 'to remember'"}, {"word": "remittent", "ipa": "/rmtnt/", "etymology": "Latin mittere 'send'"}, {"word": "remonstrate", "ipa": "/rimnstrt/", "etymology": "From Latin remonstrare 'protest, denounce, remind'",}, {"word": "renascent", "ipa": "/rnsnt/", "etymology": "Latin nasci 'to be born'"}, {"word": "renunciate", "ipa": "/rinjunst/", "etymology": "From Latin renuntiare 'to deny, refuse'" }]
+Error: Illegal trailing comma before end of object: line 1 column 787 (char 786)
+
+Time: 2025-05-02 15:35:07.103105
+Content: [{"word": "snappish", "ipa": "/snp/", "etymology": "From Middle English snapen, from Old Norse snappa, to snap"}, {"word": "soggy", "ipa": "/sgi/", "etymology": "From Old English soggian, to soak or swim"}, {"word": "solicitude", "ipa": "/slitjud/", "etymology": "From Latin solicitudo, from sollicitus, careful, anxious"}, {"word": "sop", "ipa": "/sp/", "etymology": "From Old French soppe, from Late Latin suppa"}, {"word": "sophism", "ipa": "/sfzm/", "etymology": "From Greek sophisma, cunning trick, trickery"}, {"word": "souse", "ipa": "/sz/", "etymology": "From Old French suisse, from Latin salsus, salted"}, {"word": "spackle", "ipa": "/spkl/", "etymology": "From American English spackling paste (1940s), probably from Spanish espaclar, to fill up (cracks), from espao, space"}, {"word": "sparing", "ipa": "/spr/", "etymology": "From Old English spr, a twig, from Proto-Germanic *sparaz, twig, splinter (compare Dutch speer, German Speer, spar, and Old Norse sparr)"}, {"word": "sparring", "ipa": "/spr/", "etymology": "From Danish spring, sport, exercise, from Old Norse spara, to spare or save (compare Old English sparian)}]
+Error: Unterminated string starting at: line 1 column 1029 (char 1028)
+
+Time: 2025-05-02 15:36:09.138179
+Content: [{"word": "supplicant", "ipa": "/splknt/", "etymology": "From Latin supplicare, to ask earnestly or entreat"}, {"word": "surrealism", "ipa": "/srlzm/", "etymology": "From French surralisme, from sur- 'above' + ralisme 'realism'"}, {"word": "surveyor", "ipa": "/srvjr/", "etymology": "From Old English sceawgangere 'a looker-on, observer'"}, {"word": "susceptibility", "ipa": "/ssptblti/", "etymology": "From Latin susceptibilis, from susceptus, past participle of suscipere 'to receive, take up'"}, {"word": "svelte", "ipa": "/zvlt/", "etymology": "From French svelte, from Swedish svlt, from Old Norse hvelldr 'lean, emaciated'"}, {"word": "sybaritic", "ipa": "/sabrtk/", "etymology": "From Sybaris, an ancient Greek city known for its luxury and decadence"}, {"word": "symposium", "ipa": "/smpzim/", "etymology": "From Ancient Greek symposion, from syn- 'together' + posidon 'drinking'"}, {"word": "synchronous", "ipa": "/skrons/", "etymology": "From Greek synchronos 'of the same time'"}, {"word": "synergic", "ipa": "/snrdk/", "etymology": "From Ancient Greek synergia, from syn- 'together' + ergon 'work'"}, {"word": "tamp", "ipa": "/tmp/", "etymology": "Origin unknown, perhaps akin to Middle English tamperen 'to press in'}]
+Error: Unterminated string starting at: line 1 column 1160 (char 1159)
+
+Time: 2025-05-02 15:36:57.740936
+Content: [{"word": "tined", "ipa": "/tand/", "etymology": "From Old English tn (point)"}, {"word": "titanic", "ipa": "/tatnak/", "etymology": "From Latin Titan, a group of gods in Greek mythology"}, {"word": "tonsorial", "ipa": "/tnsrl/", "etymology": "From Latin tonsura (haircut), from tonere (to cut)"}, {"word": "torpid", "ipa": "/trpd/", "etymology": "From Latin torpus, past participle of torpere (to be numb or motionless)"}, {"word": "totem", "ipa": "/totm/", "etymology": "Algonquian word meaning a carved or painted pole representing a totemic animal or emblem"), {"word": "traceable", "ipa": "/tresbl/", "etymology": "From Latin traxere (to draw)"}, {"word": "tractability", "ipa": "/trktblti/", "etymology": "From Latin tractabilis, from tractare (to handle easily)"}, {"word": "trammel", "ipa": "/trml/", "etymology": "From Old French tramele, from Latin trama (crossbar)"}, {"word": "transfigure", "ipa": "/trnzfir/", "etymology": "From Latin translucere (to shine through)"}, {"word": "transfuse", "ipa": "/trnsfjuz/", "etymology": "From Latin transfundere (to pour over)"}]
+Error: Expecting ',' delimiter: line 1 column 563 (char 562)
+
+Time: 2025-05-02 16:25:02.611015
+Content: tariffs
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 16:25:06.470479
+Content: tariffs
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 16:25:07.151108
+Content: policies
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 16:25:11.061438
+Content: policies
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 16:25:11.351707
+Content: tariffs
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 16:25:15.229154
+Content: policies
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 16:25:18.639107
+Content: investing
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 16:25:18.786590
+Content: applications
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 16:25:22.265545
+Content: investing
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 16:25:24.831786
+Content: applications
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 16:25:26.396379
+Content: investing
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 16:25:28.056293
+Content: applications
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:05:59.142752
+Content: integrations
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:06:02.191130
+Content: integrations
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:06:05.555983
+Content: integrations
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:06:07.799652
+Content: citations
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:06:09.576541
+Content: capabilities
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:06:11.321211
+Content: citations
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:06:13.062187
+Content: capabilities
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:06:13.365460
+Content: rate limits
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:06:14.909115
+Content: citations
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:06:16.643959
+Content: capabilities
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:06:18.150475
+Content: rate limits
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:06:22.834087
+Content: rate limits
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:06:28.254132
+Content: workflows
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:06:32.168633
+Content: workflows
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:06:35.636290
+Content: workflows
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:06:42.934064
+Content: macos
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:06:46.838330
+Content: macos
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:06:51.915433
+Content: macos
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:06:54.837203
+Content: windows
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:06:59.227068
+Content: windows
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:07:03.240349
+Content: windows
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:07:07.519438
+Content: mcp
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:07:10.043896
+Content: mcp
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 17:07:12.935357
+Content: mcp
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:03:28.186285
+Content: in absentia
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:03:31.928566
+Content: in absentia
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:03:34.912027
+Content: angels
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:03:35.741809
+Content: dissidents
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:03:37.014246
+Content: in absentia
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:03:38.239028
+Content: angels
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:03:39.629621
+Content: dissidents
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:06:23.039935
+Content: entrepreneurship
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:06:24.587306
+Content: { "word": "in absentia", "ipa": "/n bznti./", "etymology": "From Latin \"in\ (adverb, preposition) + absentia\" \((noun)\)" }
+Error: Invalid \escape: line 1 column 76 (char 75)
+
+Time: 2025-05-02 18:06:26.668933
+Content: entrepreneurship
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:06:27.171469
+Content: in absentia
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:06:29.023207
+Content: dissidents
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:06:30.310050
+Content: entrepreneurship
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:06:30.958529
+Content: in absentia
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:06:33.110636
+Content: dissidents
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:06:36.323824
+Content: dissidents
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:06:39.398416
+Content: entrepreneurs
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:06:41.280435
+Content: criminalization
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:06:42.868449
+Content: entrepreneurs
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:06:44.562007
+Content: entrepreneurship
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:06:45.424145
+Content: criminalization
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:06:47.126732
+Content: entrepreneurs
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:06:47.406250
+Content: protests
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:06:48.081493
+Content: entrepreneurship
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:06:49.181111
+Content: criminalization
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:06:50.826876
+Content: protests
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:06:51.831752
+Content: decision-makers
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:06:52.100523
+Content: entrepreneurship
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:06:54.080442
+Content: protests
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:06:55.456445
+Content: decision-makers
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:06:58.742615
+Content: civil society
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:07:01.430193
+Content: { "word": "decision-makers", "ipa": "/dsn\_mkrz/", "etymology": "From Old French 'desier' (to desire, wish) + Latin 'cisio' (a choice or decision). The term 'decision-makers' refers to individuals who have the authority to make choices and decisions affecting a group or organization." }
+Error: Invalid \escape: line 1 column 42 (char 41)
+
+Time: 2025-05-02 18:07:02.055613
+Content: civil society
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:07:05.669586
+Content: civil society
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:10:08.579802
+Content: in absentia
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:10:12.880605
+Content: in absentia
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:10:16.107445
+Content: dissidents
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:10:17.058328
+Content: in absentia
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:10:17.333491
+Content: angels
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:10:19.886693
+Content: dissidents
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:10:21.936083
+Content: angels
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:10:25.014843
+Content: dissidents
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:10:25.070723
+Content: criminalization
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:10:26.130238
+Content: angels
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:10:28.298919
+Content: entrepreneurship
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:10:28.405980
+Content: criminalization
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:10:31.981759
+Content: entrepreneurship
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:10:32.208136
+Content: criminalization
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:10:35.414766
+Content: entrepreneurship
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:10:35.468432
+Content: entrepreneurs
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:10:38.628616
+Content: entrepreneurs
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:10:42.100267
+Content: entrepreneurs
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:10:48.082404
+Content: { "word": "decision-makers", "ipa": "/dsn\_mkrz/", "etymology": "From Middle English decioun (singular) and decisouns (plural), from Old French desicion, from Latin decisio(n-), noun of action from past participle of decidere 'to decide'. The suffix -maker denotes someone who makes something." }
+Error: Invalid \escape: line 1 column 42 (char 41)
+
+Time: 2025-05-02 18:10:52.740307
+Content: { "word": "decision-maker", "ipa": "/dsizhn\_mkr/", "etymology": "Old French 'desision' from Latin 'decidere', meaning 'to fall apart, decide'. The suffix '-maker' indicates a person who makes something or in this case, a decision." }
+Error: Invalid \escape: line 1 column 44 (char 43)
+
+Time: 2025-05-02 18:10:55.992156
+Content: decision-makers
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:21:25.658591
+Content: in absentia
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:21:30.021533
+Content: in absentia
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:21:32.733727
+Content: angels
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:21:33.901181
+Content: dissidents
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:21:34.535873
+Content: in absentia
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:21:36.303008
+Content: angels
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:21:37.398212
+Content: dissidents
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:21:41.312646
+Content: angels
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:21:42.000975
+Content: dissidents
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:21:45.010637
+Content: criminalization
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:21:48.046638
+Content: entrepreneurship
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:21:48.524756
+Content: criminalization
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:21:49.503860
+Content: entrepreneurs
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:21:51.867847
+Content: entrepreneurship
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:21:52.533171
+Content: criminalization
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:21:53.849399
+Content: entrepreneurs
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:21:55.369634
+Content: entrepreneurship
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:21:57.655115
+Content: entrepreneurs
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:22:00.851903
+Content: decision-makers
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:22:07.291678
+Content: { "word": "decision-maker", "ipa": "/dsn\_mk/", "etymology": "Old French *desiier, de ses jornes* (of the day), 'choice'; from Latin *licere* ('to be permitted') + *de* + *-si* + *-onem* (ablative of factitive noun from *s*, past participle of *sre*, 'to allow')" }
+Error: Invalid \escape: line 1 column 41 (char 40)
+
+Time: 2025-05-02 18:22:11.800766
+Content: { "word": "decision-maker", "ipa": "/dsizjn\_mk/", "etymology": "From Old French *desicious*, from Latin *dcidere* (to make a decision, to fall), from *cadere* (to fall)" }
+Error: Invalid \escape: line 1 column 44 (char 43)
+
+Time: 2025-05-02 18:51:35.323560
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:51:35.374340
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:51:38.775732
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:51:39.429285
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:51:42.538975
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:51:42.564446
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:51:49.865486
+Content: demoed
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:51:53.950387
+Content: demoed
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 18:51:57.292591
+Content: demoed
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 19:35:11.859295
+Content: {"summary": "Amazon's Alexa+ digital assistant has reached over 100,000 users following a rollout starting in February. The enhanced AI assistant aims to provide a more natural and agentic experience, potentially generating original responses like ChatGPT and Gemini. However, the initial release lacks some key features, such as integration with third-party apps and a bedtime story generator, as initially demonstrated."}
+Error: name 'chunk_id' is not defined
+
+Time: 2025-05-02 19:35:14.754177
+Content: {"summary": "Jassy announced Alexa+ as a key AI agent focused on action, but stated it's currently primitive and inaccurate. He aimed for 90% accuracy for Nova Act, Amazon's web-browsing agent, which is progressing faster than Apple's integration of Siri. The delays and challenges in integrating LLMs with tools and systems are cited as factors contributing to these hiccups across both companies."}
+Error: name 'chunk_id' is not defined
+
+Time: 2025-05-02 19:35:17.471660
+Content: {"summary": "Alexa and Siri's integration of practical tasks like setting timers and reading texts is proving more complex than initially anticipated. While they offer potential, the implementation process presents challenges."}
+Error: name 'chunk_id' is not defined
+
+Time: 2025-05-02 19:35:31.385407
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 19:35:31.817722
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 19:35:34.189062
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 19:35:35.585397
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 19:35:39.019822
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 19:35:39.505847
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 19:35:44.088616
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 19:35:48.609410
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 19:35:52.121403
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:00:18.880345
+Content: {"summary": "Jassy stated that Alexa+ is a key AI agent aimed at consumers, but acknowledges its current technology is limited in accuracy. Amazon's Nova Act, powering Alexa+, aims for 90% accuracy in web-browsing AI. Compared to Apple's Siri rollout, Amazon's progress is faster, while both companies face delays related to integrating LLMs with other systems."}
+Error: name 'chunk_id' is not defined
+
+Time: 2025-05-02 20:00:21.492461
+Content: {"summary": "Alexa and Siri's integration of practical tasks like setting timers and reading texts has presented challenges, proving more complex than anticipated."}
+Error: name 'chunk_id' is not defined
+
+Time: 2025-05-02 20:08:27.389820
+Content: {"summary": "Amazon's Alexa+ rollout to over 100,000 users represents a significant expansion, aiming for a more natural and agentic interaction. Initially unveiled in February, the new digital assistant promises to generate original responses and utilize third-party apps like GrubHub. However, today's Alexa+ lacks some of the core features demonstrated during its initial launch, such as bedtime stories and gift brainstorming."}
+Error: name 'chunk_id' is not defined
+
+Time: 2025-05-02 20:08:30.193879
+Content: {"summary": "Jassy announced Alexa+ as a pioneering AI agent, aiming for 90% accuracy in its web-browsing capabilities. While Amazon is progressing faster, Apple is facing delays in integrating new LLMs and tools. Both companies face challenges in fully realizing the potential of generative AI, particularly in system integration."}
+Error: name 'chunk_id' is not defined
+
+Time: 2025-05-02 20:08:32.790088
+Content: {"summary": "Alexa and Siri's enhanced capabilities, including task completion through voice commands, have presented greater technical challenges than initially anticipated."}
+Error: name 'chunk_id' is not defined
+
+Time: 2025-05-02 20:10:30.880713
+Content: {"summary": "Amazon's Alexa+ has expanded to over 100,000 users following its initial unveiling in February. The upgraded digital assistant is designed to offer a more natural conversation and potentially employ agentic capabilities, allowing it to interact with third-party apps. While the rollout is progressing, the current version lacks key features like integration with popular apps and story generation. The company is aiming to enhance the assistant's conversational abilities, mimicking ChatGPT and Gemini's response generation."}
+Error: name 'summary_text' is not defined
+
+Time: 2025-05-02 20:10:33.831953
+Content: {"summary": "Jassy announced Alexa+ as a key AI agent focused on consumer action, claiming it's among the first of its kind. However, the technology is currently primitive with low accuracy, aiming for 90% in Nova Act. Amazon's Alexa+ rollout is progressing faster than Apple's LLM-powered Siri. Both companies face delays in integrating LLMs with tools and systems as they navigate the development of generative AI."}
+Error: name 'summary_text' is not defined
+
+Time: 2025-05-02 20:10:36.442952
+Content: {"summary": "Alexa and Siri's functionality extends to practical tasks like scheduling and reading messages, however, the implementation process has presented greater challenges than anticipated."}
+Error: name 'summary_text' is not defined
+
+Time: 2025-05-02 20:13:08.588012
+Content: rollout
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:17:02.196057
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:17:02.831383
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:17:05.627834
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:17:07.068673
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:17:09.879047
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:17:10.363254
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:18:24.065025
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:18:27.762376
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:18:28.065632
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:18:31.160225
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:18:32.051172
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:18:34.980460
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:18:40.211540
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:18:44.156712
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:18:47.594841
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:18:55.293794
+Content: brainstorm
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:18:58.804340
+Content: brainstorm
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:19:02.369085
+Content: brainstorm
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:28:49.771349
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:28:50.170947
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:28:52.644267
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:28:54.591578
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:28:55.651698
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:28:57.946329
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:29:03.030483
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:29:07.841302
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:29:12.581488
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:37:26.973047
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:37:31.251465
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:37:35.082082
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:42:16.538526
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:42:16.565288
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:42:19.849212
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:42:20.460227
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:42:23.256538
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:42:23.537436
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:42:31.310622
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:42:35.466321
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:42:39.914956
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:47:50.365043
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:47:54.167515
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:47:58.442471
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:48:41.632114
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:48:45.659455
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:48:47.115562
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:48:48.866138
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:48:50.456012
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:48:55.539923
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:48:57.640621
+Content: multi-step
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:49:01.634323
+Content: multi-step
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:49:05.113442
+Content: multi-step
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:52:04.722666
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:52:07.850427
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:52:11.376005
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:52:18.716747
+Content: systems
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:52:22.000039
+Content: systems
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 20:52:25.556573
+Content: systems
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:08:12.648478
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:08:16.142406
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:08:20.932510
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:08:25.566725
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:08:28.812827
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:08:32.646358
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:42:34.746386
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:42:38.573197
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:42:38.743626
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:42:41.987145
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:42:43.295992
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:42:46.991792
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:42:51.544307
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:42:54.734692
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:42:57.854728
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:45:44.928339
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:45:45.568355
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:45:48.658334
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:45:48.783564
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:45:51.660685
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:45:52.473006
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:52:42.243520
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:52:46.533397
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:52:50.226396
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:52:54.377986
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:52:58.990779
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:53:03.003641
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:54:48.143641
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:54:52.210940
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:54:55.246046
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:54:59.349735
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:55:03.349428
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 21:55:07.214841
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 22:00:56.391532
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 22:00:59.485279
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 22:01:00.524605
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 22:01:03.971101
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 22:01:04.934702
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 22:01:06.866946
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 22:01:10.319412
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 22:01:13.860843
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 22:01:17.977254
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 22:12:26.626642
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 22:12:29.785882
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 22:12:33.412135
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 22:12:37.921632
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 22:12:42.280021
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 22:12:45.726014
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 22:16:44.019362
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 22:16:47.456930
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 22:16:47.576800
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 22:16:50.640791
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 22:16:51.253492
+Content: functionality
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 22:16:53.916784
+Content: agentic
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+
+Time: 2025-05-02 22:16:58.649976
+Content: third-party
+Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
+

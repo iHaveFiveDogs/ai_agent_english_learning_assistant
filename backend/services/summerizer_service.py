@@ -1,8 +1,9 @@
-
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from db.mongodb import articles_chunks, articles_raw
+from pymongo import UpdateOne
+from services.utiles.print_function_name import log_with_func_name
 
 async def if_there_are_summary_summarized(chunk_id):
     
@@ -29,16 +30,15 @@ async def store_chunked_summaries_to_mongodb(chunk_id, chunk_summary):
     # Check if the document was found and modified
     if result.matched_count > 0:
         if result.modified_count > 0:
-            print("✅ chunked Summary Update succeeded!")
+            log_with_func_name("✅ chunked Summary Update succeeded!")
         else:
-            print("⚠️ Document found, but no changes were made (maybe duplicates or same data).")
+            log_with_func_name("⚠️ Document found, but no changes were made (maybe duplicates or same data).")
     else:
-        print("❌ No matching chunk found (chunk_id might be wrong).")
-
+        log_with_func_name("❌ No matching chunk found (chunk_id might be wrong).")
 
 async def store_combined_summaries_to_mongodb(article_id, summary):
-    print("Storing combined summaries...")
-    print(f"Article ID: {article_id}")
+    log_with_func_name("Storing combined summaries...")
+    log_with_func_name(f"Article ID: {article_id}")
     result = await articles_raw.update_one(
         {"_id": article_id},
         {"$set": {"summary": summary}},
@@ -47,17 +47,16 @@ async def store_combined_summaries_to_mongodb(article_id, summary):
     # Check if the document was found and modified
     if result.matched_count > 0:
         if result.modified_count > 0:
-            print("✅ combined_summaries Update succeeded!")
+            log_with_func_name("✅ combined_summaries Update succeeded!")
         else:
-            print("⚠️  summarizer talking :Document found, but no changes were made (maybe duplicates or same data).")
+            log_with_func_name("⚠️  summarizer talking :Document found, but no changes were made (maybe duplicates or same data).")
     else:
-        print("❌ summarizer talking :No matching article found (article_id might be wrong).")
+        log_with_func_name("❌ summarizer talking :No matching article found (article_id might be wrong).")
 
 async def combine_summaries(article_id):
-    print("Combining summaries...")
-
+    
     chunks = await articles_chunks.find({"article_id": article_id}).to_list(None)
-    print("article_id: ",article_id)
+    
     valid_summaries = []
     missing_chunks = []
 
@@ -70,7 +69,7 @@ async def combine_summaries(article_id):
             missing_chunks.append(chunk.get("chunk_id", "unknown"))
 
     if missing_chunks:
-        print(f"⚠️  summarizer talking :Missing or invalid summaries for chunks: {missing_chunks}")
+        log_with_func_name(f"⚠️  summarizer talking :Missing or invalid summaries for chunks: {missing_chunks}")
     
     if not valid_summaries:
         raise ValueError(f"❌ summarizer talking : No valid summaries found for article {article_id}.")
@@ -79,3 +78,24 @@ async def combine_summaries(article_id):
     
     print("✅ Combined summaries successfully.")
     return combined_summary
+
+async def make_summary_update(chunk_id, summary):
+    """
+    Returns a MongoDB UpdateOne operation for updating summary in a chunk.
+    
+    Args:
+        chunk_id (str): The chunk identifier.
+        summary (str): The summary text.
+
+    Returns:
+        UpdateOne: A bulk update operation for MongoDB.
+    """
+    return UpdateOne(
+        {"chunk_id": chunk_id},
+        {
+            "$set": {
+                "summary": summary,
+                "status.summarized": True
+            }
+        }
+    )

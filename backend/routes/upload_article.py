@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from models.article_model import Article
 from services.chunk_article_service import chunk_article, upload_article_to_db
-from agents.alfo import alfo_handle_chunked_article_decision
+from ai_service.intelligence.alfo import alfo_handle_chunked_article_decision
 
 router = APIRouter()
 

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from models.explain_request import ExplainRequest
-from agents.context_explainer import context_explainer_handle_article
+from ai_service.intelligence.chosen_text_explainer import context_explainer_handle_article
 
 router = APIRouter()
 

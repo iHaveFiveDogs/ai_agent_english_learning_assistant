@@ -1,46 +1,20 @@
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-import unicodedata
-
-from bs4 import BeautifulSoup
-from nltk.tokenize import sent_tokenize
 
 from db.mongodb import articles_chunks, articles_raw
-from bson import ObjectId
+
 from datetime import datetime
 from fastapi import HTTPException
+from services.utiles.print_function_name import log_with_func_name
 
-import re
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-def clean_html(content):
-    soup = BeautifulSoup(content, "html.parser")
-    return soup.get_text()
+from services.utiles.json_clean import *
 
-def clean_content(text):
-    # Remove invisible characters
-    text = re.sub(r'[\u200b-\u200f\u2028\u2029]', '', text)
-
-    # Normalize spaces
-    text = re.sub(r'\s+', ' ', text).strip()
-
-    # Replace smart quotes
-    text = text.replace('“', '"').replace('”', '"')
-    text = text.replace('‘', "'").replace('’', "'")
-
-    # Remove any strange tabs or carriage returns
-    text = text.replace('\t', ' ').replace('\r', '')
-
-    # Optional: remove weird unicode (like emoji) if you want
-    text = re.sub(r'[^\x00-\x7F]+', '', text)
-    text = text.encode('utf-8', 'ignore').decode('utf-8')
-    
-    return text
-
-### upload article service ###
 async def upload_article_to_db(article):
     try:
-        cleaned_content = clean_content(article["content"])
+        cleaned_content = clean_html(article["content"])
         word_count = len(cleaned_content.split())
         
 
@@ -53,57 +27,42 @@ async def upload_article_to_db(article):
             "upload_date": datetime.utcnow(),
             "content": cleaned_content
         })
-        print("✅ Article uploaded successfully!:",result.inserted_id)
+        log_with_func_name("✅ Article uploaded successfully!")
         return result.inserted_id
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-### upload article service ###
 
-#####  chunk article service ######
 async def chunk_article(article_id):
-    # Fetch the article from the articles_raw collection
+    splitter = RecursiveCharacterTextSplitter(
+        chunk_size=800,       # use token count if you're tokenizing
+        chunk_overlap=100
+    )
+
     article = await articles_raw.find_one({"_id": article_id})
     if not article:
         raise HTTPException(status_code=404, detail="Article not found")
-
+    
     # Clean the article content
     content = article.get("content", "")
     cleaned_content = clean_html(content)
     cleaned_content = clean_content(cleaned_content)
-    
-    # Tokenize into sentences
-    sentences = sent_tokenize(cleaned_content)
-    
-    # Chunk sentences into manageable pieces
-    chunks = []
-    current_chunk = []
-    current_length = 0
-    
-    for sentence in sentences:
-        sentence_length = len(sentence.split())
-        if current_length + sentence_length > 200:
-            chunks.append(" ".join(current_chunk))
-            current_chunk = []
-            current_length = 0
-        current_chunk.append(sentence)
-        current_length += sentence_length
-    
-    if current_chunk:
-        chunks.append(" ".join(current_chunk))
-    
-    # Store chunks in MongoDB
+
+    chunks = splitter.split_text(cleaned_content)
+
+    # Store to MongoDB
     for index, chunk in enumerate(chunks):
         await articles_chunks.insert_one({
             "chunk_id": f"{article_id}_{index}",
             "article_id": article_id,
             "chunk_index": index,
             "chunk_text": chunk,
-            "status": {"summarized": False, "word_explained": False, "personas": False}
+            "status": {
+                "summarized": False,
+                "word_explained": False,
+                "personas": False
+            }
         })
-#####  chunk article service ######
 
-
-#####  fetch chunked articles service ######
 async def fetch_chunked_articles(article_id):
     # Query the MongoDB collection for the chunked articles
     #article_id = ObjectId(object_id_str)
@@ -123,12 +82,9 @@ async def fetch_chunked_articles(article_id):
         chunks.append({"chunk_text": chunk_text, "chunk_id": chunk_id})
     
     return chunks
-#####  fetch chunked articles service ######
 
 
 
 
-# Example usage
-if __name__ == "__main__":
-    import asyncio
-    asyncio.run(chunk_article())
+
+

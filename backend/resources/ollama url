@@ -1,7 +1,0 @@
-
-talk method: 
-
-Invoke-RestMethod -Uri "http://localhost:11434/api/generate" `
-  -Method POST `
-  -Body '{"model": "{model.name}", "prompt": "Hello!"}' `
-  -ContentType "application/json

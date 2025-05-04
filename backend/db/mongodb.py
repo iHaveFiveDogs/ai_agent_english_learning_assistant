@@ -10,4 +10,4 @@ client = AsyncIOMotorClient(os.getenv("MONGODB_URI"))
 db = client[os.getenv("MONGODB_DB_NAME")]
 articles_raw = db["articles_raw"]
 articles_chunks = db["articles_chunks"]
-personas = db["personas"]
+personas_collection = db["personas"]

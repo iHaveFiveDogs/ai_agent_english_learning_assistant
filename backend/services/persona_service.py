@@ -1,20 +1,19 @@
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from db.mongodb import articles_chunks, articles_raw, personas
+from db.mongodb import articles_chunks, articles_raw, personas_collection
 from pymongo import UpdateOne
 from bson import ObjectId
+from services.utiles.print_function_name import log_with_func_name
 
 async def if_there_are_persona(chunk_id):
     
     doc = await articles_chunks.find_one({"chunk_id": chunk_id})
     if doc.get("status", {}).get("personas") == True:
-        print("✅ Personas already done, skipping.")
+        log_with_func_name("✅ Personas already done, skipping.")
         return True
     else:
         return False
-
-async def store_chunked_personas_to_mongodb(chunk_id, persona_list):
     result = await articles_chunks.update_one(
         {"chunk_id": chunk_id},
         {"$push": {
@@ -35,7 +34,7 @@ async def store_chunked_personas_to_mongodb(chunk_id, persona_list):
 
 async def store_combined_persona_to_mongodb(article_id):
 
-    print("Storing combined Personas...")
+    log_with_func_name("Storing combined Personas...")
     cursor = await articles_chunks.find({"article_id": article_id}).to_list(None)
 
     all_personas = []
@@ -54,18 +53,17 @@ async def store_combined_persona_to_mongodb(article_id):
     # Check if the document was found and modified
     if result.matched_count > 0:
         if result.modified_count > 0:
-            print("✅ persona Update succeeded!")
+            log_with_func_name("✅ persona Update succeeded!")
         else:
-            print("⚠️ persona service talking : Document found, but no changes were made (maybe duplicates or same data).")
+            log_with_func_name("⚠️ persona service talking : Document found, but no changes were made (maybe duplicates or same data).")
     else:
-        print("❌ persona service talking : No matching article found (article_id might be wrong).")
+        log_with_func_name("❌ persona service talking : No matching article found (article_id might be wrong).")
 
 async def merge_persona_documents(persona_name, collection):
     # Step 1: Find all docs for this persona
     docs = await collection.find({"persona": persona_name}).to_list(length=None)
 
     if len(docs) <= 1:
-        print(f"No duplicates found for persona: {persona_name}")
         return
 
     merged_articles = {}
@@ -96,8 +94,13 @@ async def merge_persona_documents(persona_name, collection):
         {"$set": {"articles": final_articles}}
     )
 
-    print(f"✅ Merged {len(docs)} entries into one for persona '{persona_name}'")
-    
+    log_with_func_name(f"✅ Merged {len(docs)} entries into one for persona '{persona_name}'")
+
+async def merge_all_personas():
+    distinct_names = await personas_collection.distinct("persona")
+    for name in distinct_names:
+        await merge_persona_documents(name, personas_collection)
+
 async def upsert_persona_entries(article_id, chunk_id, persona_list):
     """
     For each persona, ensure:
@@ -137,24 +140,26 @@ async def upsert_persona_entries(article_id, chunk_id, persona_list):
         bulk_operations.append(fallback_upsert)
 
     if bulk_operations:
-        result = await personas.bulk_write(bulk_operations)
-        print("✅ Persona entries updated:", result.bulk_api_result)
+        await personas_collection.bulk_write(bulk_operations)
+        log_with_func_name("✅ Persona entries updated")
 
-    # Merge duplicate persona entries
-    print("Merging duplicate persona entries...")
-    distinct_names = await personas.distinct("persona")
-    for name in distinct_names:
-        await merge_persona_documents(name, personas)
-    print("✅ Duplicate persona entries merged.")
+async def make_persona_update(chunk_id, persona_list):
+    """
+    
+    """
+    return UpdateOne(
+        {"chunk_id": chunk_id},
+        {"$set": {"personas": persona_list, "status.personas": True}}
+    )
 
-async def gather_persona_entries():
+async def gather_all_persona_docs():
     all_docs = []
-    async for persona_doc in personas.find({}):
+    async for persona_doc in personas_collection.find({}):
         persona = persona_doc["persona"]
         for article in persona_doc["articles"]:
             article_id = article["article_id"]
             for chunk_id in article["chunk_ids"]:
-                chunk = await chunks.find_one({"chunk_id": chunk_id})
+                chunk = await articles_chunks.find_one({"chunk_id": chunk_id})
                 if chunk and "summary" in chunk:
                     all_docs.append({
                         "content": chunk["summary"],
@@ -166,8 +171,40 @@ async def gather_persona_entries():
                     })
     return all_docs
 
+async def gather_single_persona_docs(persona_name: str):
+    """
+    Gather all summary documents related to a specific persona.
+    Each document includes content (summary) and metadata.
+    """
+    all_docs = []
 
+    persona_doc = await personas_collection.find_one({"persona": persona_name})
+    if not persona_doc:
+        print(f"⚠️ No persona found for '{persona_name}'")
+        return []
+    
 
+    for article in persona_doc.get("articles", []):
+        
+        article_id = article["article_id"]
+        for chunk_id in article.get("chunk_ids", []):
+            chunk = await articles_chunks.find_one({"chunk_id": chunk_id})
+            if chunk and "summary" in chunk:
+                all_docs.append({
+                    "content": chunk["summary"]["summary"] if isinstance(chunk["summary"], dict) else chunk["summary"],
+                    "metadata": {
+                        "persona": persona_name,
+                        "chunk_id": chunk_id,
+                        "article_id": str(article_id)
+                    }
+                })
+    print(f"✅ prepared article for persona: {persona_name}")
 
-# ✅ Example usage after each chunk is processed
-# await upsert_persona_entries(article_id, chunk_id, alfo_decision["personas"]
+    return all_docs
+
+async def fetch_all_persona_names() -> list[str]:
+    """
+    Fetch all distinct persona names from the personas collection.
+    """
+    persona_names = await personas_collection.distinct("persona")
+    return sorted(name.lower() for name in persona_names)
