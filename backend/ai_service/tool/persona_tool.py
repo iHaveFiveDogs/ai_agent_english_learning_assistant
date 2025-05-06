@@ -3,8 +3,7 @@ from services.persona_service import fetch_all_persona_names
 from ai_service.memory.persona_vector import get_relevant_docs_by_role
 from ai_service.intelligence.persona import persina_chain_detect_role, persona_handle_user_question
 from models.personaInput import PersonaInput
-from models.persona_agent_state import PersonaAgentState
-from langgraph.graph import StateGraph
+
 
 
 
@@ -54,11 +53,7 @@ async def persona_tool_fn(persona_input: PersonaInput | str) -> str:
 
     return result.content if result and result.content else "No response."
 # langraph version
-async def fetch_context_node(state: PersonaAgentState):
-    
-    docs = await get_relevant_docs_by_role(state["role"], state["query"])
-    context = "\n".join([doc.page_content for doc in docs]) if docs else "No relevant docs"
-    return {**state, "context": context}
+
 
 def combine_tools():
     tools = [persona_tool_fn]

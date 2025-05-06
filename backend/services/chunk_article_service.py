@@ -14,7 +14,7 @@ from services.utiles.json_clean import *
 
 async def upload_article_to_db(article):
     try:
-        cleaned_content = clean_html(article["content"])
+        cleaned_content = clean_html(article.content)
         word_count = len(cleaned_content.split())
         
 
@@ -22,8 +22,8 @@ async def upload_article_to_db(article):
         if word_count > 2000:
             raise HTTPException(status_code=400, detail="Article content exceeds 1000 words")
         result = await articles_raw.insert_one({
-            "title": article["title"],
-            "source": article["source"],
+            "title": article.title,
+            "source": article.source,
             "upload_date": datetime.utcnow(),
             "content": cleaned_content
         })
@@ -83,8 +83,23 @@ async def fetch_chunked_articles(article_id):
     
     return chunks
 
-
-
-
-
-
+async def fetch_all_articles():
+    """
+    Fetch all articles from the articles_raw MongoDB collection that have etymology, contextual_meaning, and example_sentences fields.
+    Returns a list of articles (as dicts), converting ObjectId and datetime for frontend compatibility.
+    """
+    try:
+        cursor = articles_raw.find({
+            "summary": {"$exists": True},
+            "content": {"$exists": True}
+        })
+        articles = []
+        async for article in cursor:
+            article["_id"] = str(article["_id"])
+            for k, v in article.items():
+                if hasattr(v, 'isoformat'):
+                    article[k] = v.isoformat()
+            articles.append(article)
+        return articles
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

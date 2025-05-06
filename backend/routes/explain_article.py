@@ -1,4 +1,5 @@
 from fastapi import APIRouter, HTTPException
+from fastapi.responses import JSONResponse
 from models.explain_request import ExplainRequest
 from ai_service.intelligence.chosen_text_explainer import context_explainer_handle_article
 
@@ -9,10 +10,10 @@ router = APIRouter()
 @router.post('/explain')
 async def explain_article(request: ExplainRequest):
     
-    selected_text = await context_explainer_handle_article(request.text)
+    ai_explanation = await context_explainer_handle_article(request.text)
+    
+    if not ai_explanation or "explanation" not in ai_explanation:
+        return JSONResponse(content={"error": "Failed to generate explanation."}, status_code=500)
+    explanation = ai_explanation["explanation"]
 
-    explanation = {
-        "sentence": request.text,
-        "plain_explanation": selected_text
-    }
-    return {'explanation': explanation}
+    return JSONResponse(content={"explanation": explanation})

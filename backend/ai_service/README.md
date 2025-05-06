@@ -24,6 +24,12 @@ The ai_service directory is designed to provide a collection of agents that can 
 - `prompts/`: Prompt templates for agents
 - `config/`: Configuration files for agents
 
+## Redis Usage
+
+This module uses [Redis](https://redis.io/) as an in-memory data store for tracking job progress during AI-driven tasks such as article upload and processing. Redis must be running and accessible (default: `localhost:6379`).
+
+- Progress tracking functions are available in `services.utiles.upload_process_track` and are used by async agents (e.g., `alfo.py`).
+
 ## Main APIs
 
 - AI agent orchestration and tool APIs for persona, summarization, and word explanation.

@@ -49,10 +49,10 @@ async def context_explainer_handle_article(user_context):
 
         
     
-        response = await decode_json_with_retry(json_content)
-        
-        
-        
+        response = fix_and_parse_multiple_json_objects(json_content)
+        if len(response) > 1:
+            print("Warning: Multiple JSON objects found. Using the first one.")
+        response = response[0]
         return response
     except Exception as e:
         print(f"Failed to decode JSON: {e}")

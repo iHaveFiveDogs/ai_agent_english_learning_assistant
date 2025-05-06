@@ -23,6 +23,13 @@ All major async functions and helpers listed above are intended for use by other
 
 Services are designed to be stateless and can be called from any part of the application. Refer to the service interface for correct usage patterns.
 
+## Redis Dependency
+
+This module uses [Redis](https://redis.io/) for tracking the progress of long-running jobs (such as article upload and processing). Redis must be installed and running (default: `localhost:6379`).
+
+- Progress tracking helpers are in `utiles/upload_process_track.py`.
+- Used by both backend routes and AI services for real-time progress updates.
+
 ## Contributing
 
 Contributions are welcome! Please submit a pull request or open an issue for suggestions and improvements.

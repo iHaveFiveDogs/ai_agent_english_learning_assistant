@@ -7064,3 +7064,35 @@ Time: 2025-05-02 22:16:58.649976
 Content: third-party
 Error: save_words_to_cached_db() takes 1 positional argument but 3 were given
 
+Time: 2025-05-05 20:17:40.760232
+Content: { "word": "decision-makers", "ipa": "/dsn\_mkrz/", "etymology": "English term, derived from the Latin word *decidere* (decedere), which means 'to fall', in the sense of 'come to a conclusion'. The prefix *de-* indicates 'completely' or 'off'. The noun *decision* was formed by adding the suffix *-ion*. The term *maker* refers to someone who makes decisions." }
+Error: Invalid \escape: line 1 column 42 (char 41)
+
+Time: 2025-05-06 10:04:08.281152
+Content: { "sentence": "There's no point continuing to fight any more, life is precious," said Prince Harry, who said the dispute over his security had 'always been the sticking point'. Prince Harry loses legal challenge over security Six key moments from Prince Harry's BBC interview The prince had wanted to overturn changes to his security that were introduced in 2020 as he stepped down as a working royal and moved to the United States.", "plain_explanation": "Prince Harry said it's not worth continuing to argue about his security anymore because life is important. He had been fighting against changes made to his security arrangement since 2020 when he stopped being a full-time royal and moved to America. Unfortunately, his legal challenge to reverse these changes was unsuccessful." }
+Error: Expecting ',' delimiter: line 1 column 82 (char 81)
+
+Time: 2025-05-06 10:23:38.532577
+Content: { "sentence": "Elon Musk's SpaceX is getting its own official company town.", "explanation": "This means that Elon Musk's business, SpaceX, is going to have its very own small town where it operates, which is officially recognized by the government." } { "sentence": "Residents of an area around SpaceX's Starbase launch site in southern Texas voted overwhelmingly on Saturday to incorporate as a city also named Starbase.", "explanation": "People who live near SpaceX's launch site in Texas have voted together to make their neighborhood into a new city, and they decided to call this city 'Starbase' too." }
+Error: Extra data: line 1 column 254 (char 253)
+
+Time: 2025-05-06 10:41:12.750780
+Content: { "sentence": "According to results posted online by the Cameron County Elections Department, there were 212 votes in favor and only six against.", "explanation": "Based on numbers shared on a website by the elections department of Cameron County, there were 212 people who voted yes and 6 people who voted no for something." } { "sentence": "In a post on his social media site X, Musk wrote that Starbase, Texas 'Is now a real city!'.", "explanation": "On his social media account X, Elon Musk said that the place called Starbase, in Texas, has become a real city." }
+Error: Extra data: line 1 column 329 (char 328)
+
+Time: 2025-05-06 10:42:45.723969
+Content: { "sentence": "According to results posted online by the Cameron County Elections Department, there were 212 votes in favor and only six against.", "explanation": "The Cameron County Elections Department shared some results they had online. They showed that out of all the people who voted on something (we don't know what), 212 people voted 'yes' or for it, while only 6 people voted 'no' or against it." } { "sentence": "In a post on his social media site X, Musk wrote that Starbase, Texas 'Is now a real city!',", "explanation": "On his website X (which is Elon Musk's personal social media), he posted something saying that Starbase, Texas has officially become a real town or city." }
+Error: Extra data: line 1 column 409 (char 408)
+
+Time: 2025-05-06 10:50:22.134203
+Content: { "sentence": "Elon Musk's SpaceX is getting its own official company town.", "explanation": "This means that a special area where SpaceX (a company run by Elon Musk) has its main launch site in Texas is becoming an officially recognized city. They decided to call this new city 'Starbase' too." }
+Error: 'list' object has no attribute 'content'
+
+Time: 2025-05-06 10:52:09.403983
+Content: { "sentence": "Elon Musk's SpaceX is getting its own official company town.", "explanation": "SpaceX, which belongs to Elon Musk, is going to have an official town all for itself. This town will be a place where they work." } { "sentence": "Residents of an area around SpaceX's Starbase launch site in southern Texas voted overwhelmingly on Saturday to incorporate as a city also named Starbase.", "explanation": "The people living near the SpaceX launch site in southern Texas, called Starbase, decided to make their town official by voting to become a city with the same name." }
+Error: list indices must be integers or slices, not str
+
+Time: 2025-05-06 13:53:10.026276
+Content: {"summary": "Several companies, including Intel and Adidas, are responding to US tariffs by shifting trade policies. Firms are suspending earnings guidance and anticipating a potential economic slowdown, with a risk of recession. The tariffs are increasing uncertainty and pricing pressures for consumers, particularly in sportswear."]}
+Error: Expecting ',' delimiter: line 1 column 335 (char 334)
+

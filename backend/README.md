@@ -14,6 +14,7 @@ This backend powers the Article AI Agent, providing advanced English learning as
 - **FastAPI**: High-performance web framework for building APIs
 - **LangChain**: Framework for developing applications powered by large language models
 - **ChromaDB**: Vector database for storing embeddings (if used)
+- **Redis**: In-memory data store for job progress tracking
 - Other dependencies as listed in `requirements.txt`
 
 ## Directory Structure
@@ -45,6 +46,24 @@ requirements.txt      # Python dependencies
 ## Usage
 - Use the provided API endpoints for article upload, explanation, and summarization.
 - Refer to the `ai_service` and `services` directories for modular agent/service usage.
+
+## API Endpoints
+
+### Upload Progress Endpoint
+
+You can check the progress of an article upload job via:
+
+```
+GET /progress/{job_id}
+```
+
+**Response Example:**
+```json
+{
+  "progress": 42
+}
+```
+- `progress` is an integer representing the current progress percentage (0-100).
 
 ## Contributing
 Contributions are welcome! Please open an issue or submit a pull request.

@@ -10,6 +10,7 @@ from services.summerizer_service import *
 from services.persona_service import *
 from services.utiles.json_clean import *
 from services.utiles.print_function_name import log_with_func_name
+from services.utiles.upload_process_track import *
 
 from ai_service.intelligence.word_explainer import *
 from ai_service.intelligence.summarizer import *
@@ -35,11 +36,11 @@ async def persona_task(article_id, chunk_id, persona_list, persona_updates):
         await upsert_persona_entries(article_id, chunk_id, persona_list)
         persona_updates.append(await make_persona_update(chunk_id, persona_list))
 
-async def alfo_handle_chunked_article_decision(article_id):
+async def alfo_handle_chunked_article_decision(article_id, job_id: str):
     # Fetch chunked articles asynchronously
-    
+    update_progress(job_id, 5)
     chunks = await fetch_chunked_articles(article_id)
-    
+    update_progress(job_id, 10)
     all_tasks = []
     word_updates = []
     persona_updates = []
@@ -105,6 +106,7 @@ async def alfo_handle_chunked_article_decision(article_id):
         finally:
             # Any cleanup code if necessary
             log_with_func_name(f"Finished processing chunk {chunk_id}")
+            update_progress(job_id, 55)
     # Now wait for both tasks to finish
     if all_tasks:
         await asyncio.gather(*all_tasks)
@@ -112,12 +114,15 @@ async def alfo_handle_chunked_article_decision(article_id):
     if word_updates:
         await articles_chunks.bulk_write(word_updates)
         log_with_func_name("✅ Word explanations stored successfully.")
+        update_progress(job_id, 60)
     if persona_updates:
         await articles_chunks.bulk_write(persona_updates)
         log_with_func_name("✅ Personas stored successfully.")
+        update_progress(job_id, 70)
     if summary_updates:
         await articles_chunks.bulk_write(summary_updates)
         log_with_func_name("✅ Summaries stored successfully.")
+        update_progress(job_id, 80)
     
     # Merge duplicate persona entries
     log_with_func_name("Merging duplicate persona entries...")
@@ -132,18 +137,21 @@ async def alfo_handle_chunked_article_decision(article_id):
         combined_summary = await summarize_large_combined_text(combined_summary)
         
         await store_combined_summaries_to_mongodb(article_id, combined_summary)
+        update_progress(job_id, 90)
     except Exception as e:
         log_with_func_name(f"❌ Failed to combine summaries: {e}")
-
+    
     # Combine word explanations after processing all chunks
     try:
         await store_combined_word_explanation_to_mongodb(article_id)
+        update_progress(job_id, 95)
     except Exception as e:
         log_with_func_name(f"❌ Failed to store word explanations: {e}")
 
     try:
         
         await store_combined_persona_to_mongodb(article_id)
+        update_progress(job_id, 100)
     except Exception as e:
         log_with_func_name(f"❌ Failed to store personas: {e}")
 

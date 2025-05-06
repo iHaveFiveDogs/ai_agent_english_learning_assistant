@@ -10,6 +10,7 @@ from langchain.schema import Document
 from services.persona_service import *
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import hashlib,json
+from models.persona_agent_state import PersonaAgentState
 
 embedding_fn = OllamaEmbeddings(model="nomic-embed-text")
 splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
@@ -77,4 +78,19 @@ async def get_relevant_docs_by_role(role: str, query: str) -> list[Document]:
         print(f"⚠️ No raw docs found for role: {role}")
         return []
     retriever = await get_retriever(raw_docs)
-    return await retriever.ainvoke(query)
+    return await similarity_search_with_filter(raw_docs, query, role)
+
+#langraph
+async def fetch_context_node(state: PersonaAgentState):
+    print(f"🔍 Current state at [NODE_NAME]: {state}")
+    docs = await get_relevant_docs_by_role(state["role"], state["query"])
+    context = "\n".join([doc.page_content for doc in docs]) if docs else "No relevant docs"
+    return {**state, "context": context}
+
+async def similarity_search_with_filter(raw_docs, query, role):
+    documents = [
+        Document(page_content=item["content"], metadata=item.get("metadata", {}))
+        for item in raw_docs
+    ]
+    vectorstore = Chroma.from_documents(documents, embedding_fn)
+    return vectorstore.similarity_search(query, k=5, filter={"persona": role.lower()})

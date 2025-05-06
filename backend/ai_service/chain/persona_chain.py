@@ -12,5 +12,6 @@ from ai_service.prompts.persona_prompt import *
 try:
     persona_answer_question_chain = persona_answer_question_prompt | load_llm('persona')
     persona_selector_chain = persona_selector_prompt | load_llm('persona')
+    persona_chat_chain = persona_chat_prompt | load_llm('persona')
 except Exception as e:
     print(e)

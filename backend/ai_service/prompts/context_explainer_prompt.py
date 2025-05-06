@@ -7,8 +7,7 @@ chosen_text_explainer_prompt = ChatPromptTemplate.from_messages([
     "\n"
     "Respond only in JSON format like this:\n"
     "{{\n"
-    "  \"sentence\": \"...\",\n"
-    "  \"plain_explanation\": \"...\"\n"
+    "  \"explanation\": \"...\"\n"
     "}}\n"
     "\n"
     "⚠️ No extra output, no commentary. Return valid JSON only."),

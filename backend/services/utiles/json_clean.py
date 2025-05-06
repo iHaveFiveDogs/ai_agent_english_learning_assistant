@@ -81,3 +81,22 @@ def find_weird_unicode_chars(text):
             }
             weird_chars.append(char_info)
     return weird_chars
+
+def fix_and_parse_multiple_json_objects(raw_str):
+    # Remove unwanted characters
+    cleaned = raw_str.replace('\n', '').replace('\t', '').replace('\r', '')
+    cleaned = cleaned.replace('“', '"').replace('”', '"')
+    
+    # Use regex to split into individual JSON objects
+    json_objects = re.findall(r'\{.*?\}', cleaned)
+    
+    if not json_objects:
+        raise ValueError("No valid JSON objects found")
+
+    wrapped = f"[{','.join(json_objects)}]"
+    
+    try:
+        return json.loads(wrapped)
+    except json.JSONDecodeError as e:
+        print("Failed to decode JSON:", e)
+        raise
