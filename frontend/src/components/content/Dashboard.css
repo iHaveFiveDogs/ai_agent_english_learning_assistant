@@ -1,0 +1,90 @@
+/* Dashboard panel styles (restored) */
+.dashboard-panel {
+  background: #fafbfc;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  width: 350px;
+  min-width: 260px;
+  max-width: 350px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+}
+.dashboard-tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  border-bottom: 1.5px solid #ececec;
+  background: #f4f4f4;
+  border-radius: 14px 14px 0 0;
+  margin: 0;
+}
+.tab {
+  flex: 1;
+  padding: 14px 0;
+  background: none;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #555;
+  cursor: pointer;
+  border-radius: 14px 14px 0 0;
+  transition: background 0.2s, color 0.2s;
+}
+.tab.active {
+  background: #fff;
+  color: #111;
+  border-bottom: 2px solid #00b894;
+}
+.tab-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  overflow-y: auto;
+}
+.dashboard-sheet {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  padding: 0;
+  background: #fff;
+  border-radius: 0 0 14px 14px;
+  overflow-y: auto;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+.dashboard-wordlist {
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1;
+  padding: 12px 0 8px 10px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  max-width: 100%;
+  box-sizing: border-box;
+  white-space: normal;
+  word-break: break-word;
+}
+.dashboard-wordlink {
+  color: #1976d2;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 1.05rem;
+  background: #eaf4ff;
+  border: none;
+  border-radius: 16px;
+  padding: 5px 14px;
+  font-weight: 500;
+  margin: 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  transition: background 0.18s, color 0.18s;
+}
+.dashboard-wordlink-active {
+  background: #1976d2;
+  color: #fff;
+}

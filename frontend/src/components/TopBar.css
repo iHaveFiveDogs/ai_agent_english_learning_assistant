@@ -1,0 +1,18 @@
+/* TopBar component styles */
+
+.hamburger-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-right: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background 0.2s;
+  border-radius: 6px;
+  outline: none;
+}
+.hamburger-btn:hover,
+.hamburger-btn:focus {
+  background: rgba(34,34,34,0.08);
+}

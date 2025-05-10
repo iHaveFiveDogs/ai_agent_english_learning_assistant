@@ -1,0 +1,15 @@
+/* ArticleCard component styles */
+
+.article-card {
+  background: #f6fafd;
+  border-radius: 16px;
+  padding: 24px 28px 18px 28px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  max-width: 380px;
+  width: 100%;
+  font-family: inherit;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

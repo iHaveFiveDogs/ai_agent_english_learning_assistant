@@ -1,0 +1,10 @@
+⚠️ Optional Improvements
+Precache persona vectorstores
+If your dataset grows, dynamically rebuilding Chroma per request may slow things down.
+You can cache each persona’s FAISS or Chroma vectorstore at startup or in Redis.
+
+Fallback if no docs are found
+Currently it logs and returns "No relevant docs" — you can route to a fallback node or return "I don't have enough info to answer".
+
+Stream LLM response (in chat_with_user)
+Helps UX when frontend is waiting. You can use .astream() for token-level delivery.

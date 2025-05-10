@@ -1,0 +1,7 @@
+/* ExplainableWrapper component styles */
+
+.explainable-highlight {
+  background: #fffbe7;
+  border-bottom: 2px dashed #ffb300;
+  cursor: pointer;
+}
