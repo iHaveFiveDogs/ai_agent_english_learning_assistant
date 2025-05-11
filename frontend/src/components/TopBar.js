@@ -29,7 +29,7 @@ const TopBar = () => {
 
   return (
     <header className="top-bar">
-      <div className="top-bar-left" style={{ position: 'relative' }}>
+      <div className="top-bar-left" style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
         <HamburgerIcon onClick={handleMenuToggle} />
         {menuOpen && (
           <div className="dropdown-menu" style={{
@@ -59,12 +59,15 @@ const TopBar = () => {
             </Link>
           </div>
         )}
-        <Link to="/articles" className="nav-link">Articles</Link>
+        <nav style={{ display: 'flex', gap: '18px', alignItems: 'center', marginLeft: 12 }}>
+          <Link to="/articles?tag=news" className="nav-link">Articles</Link>
+          <Link to="/articles?tag=novels" className="nav-link">Novels</Link>
+        </nav>
       </div>
-      <div className="top-bar-center">
-        <input className="search-input" type="text" placeholder="Search..." />
+      <div className="top-bar-center" style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <input className="search-input" type="text" placeholder="Search..." style={{ maxWidth: 260 }} />
       </div>
-      <div className="top-bar-right">
+      <div className="top-bar-right" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         <button className="auth-btn">Sign In</button>
         <button className="auth-btn">Sign Up</button>
       </div>

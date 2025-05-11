@@ -5,6 +5,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 
 
 from services.chunk_article_service import *
+from db.mongodb import articles_chunks
 from services.word_explainer_service import *
 from services.summerizer_service import *
 from services.persona_service import *
@@ -37,7 +38,7 @@ async def persona_task(article_id, chunk_id, persona_list, persona_updates):
 
 async def alfo_handle_chunked_article_decision(article_id):
     # Fetch chunked articles asynchronously
-    chunks = await fetch_chunked_articles(article_id)
+    chunks = await fetch_chunked_articles(article_id, articles_chunks)
     all_tasks = []
     word_updates = []
     persona_updates = []

@@ -7,14 +7,14 @@ import asyncio
 
 from ai_service.intelligence.alfo import alfo_handle_chunked_article_decision
 from ai_service.agents.upload_handle_agent_langraph import alfo_article_graph
+from db.mongodb import articles_raw, articles_chunks
 
-
-async def full_article_pipeline(article_id):
+async def full_article_pipeline(article_id, raw_collection , chunked_collection):
     
-    await alfo_handle_chunked_article_decision(article_id)
+    await alfo_handle_chunked_article_decision(article_id, raw_collection , chunked_collection)
     return article_id
 
-async def full_article_pipeline_with_langraph(article_id):
+async def full_article_pipeline_with_langraph(article_id, raw_collection , chunked_collection):
     
     await alfo_article_graph.ainvoke({
         "article_id": ObjectId(article_id),
@@ -34,9 +34,9 @@ async def full_article_pipeline_with_langraph(article_id):
         "summary_update": {},
         "word_update": {},
         "persona_update": {},
+        "raw_collection": raw_collection,
+        "chunked_collection": chunked_collection,
     })
     return article_id
-
-if __name__ == '__main__':
-    
-    asyncio.run(full_article_pipeline_with_langraph((ObjectId('681d7a2a41cb4b8f22b1dc9b'))))
+if __name__ == '__main__':    
+    asyncio.run(full_article_pipeline_with_langraph(ObjectId('68200f79f3773b6476450d13'), articles_raw, articles_chunks))

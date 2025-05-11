@@ -7172,3 +7172,7 @@ Time: 2025-05-09 12:26:11.968834
 Content: { "word": "buyer", "ipa": "/bar/", "etymology": "Old English: bgere, from bo(n)gan 'to buy' + -i-, a suffix denoting an agent or doer" }, { "word": "beware", "ipa": "/bwr/", "etymology": "Old English: beawian, from be- 'by' + awihtian 'to watch, look after, attend to' (akin to Old High German wahhtar 'watcher', Dutch waarder 'supervisor', Old Norse veita 'give')" }
 Error: Extra data: line 1 column 137 (char 136)
 
+Time: 2025-05-11 11:06:55.529156
+Content: { "word": "president", "explanation": "A person who is elected or chosen to be the leader of a country, organization, or group.", "contextual_meaning": "In this sentence, 'president' refers to the leader (or head of state) of the United States. Here it specifically refers to President Donald Trump.", "example_sentences": [ "'The president of our school is very kind and always listens to our ideas.', "'She served as the president of a large corporation for 10 years.' ] }
+Error: Expecting ',' delimiter: line 1 column 405 (char 404)
+

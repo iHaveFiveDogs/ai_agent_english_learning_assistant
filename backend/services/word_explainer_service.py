@@ -2,7 +2,6 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from db.mongodb import articles_chunks, articles_raw
 from pymongo import UpdateOne
 from nltk.tokenize import sent_tokenize
 from db.sqlite import save_words, fetch_word
@@ -25,8 +24,8 @@ def extract_word_sentences(chunk, word_list):
     return word_sentences
 #### handle word_list retrival from alfo agent #####
 ##### handle word explanation from explainer  store into mongodb articles_chunks#####
-async def store_word_explanation_to_mongodb(chunk_id, word_list):
-    result = await articles_chunks.update_one(
+async def store_word_explanation_to_mongodb(chunk_id, word_list, chunks_collection):
+    result = await chunks_collection.update_one(
         {"chunk_id": chunk_id},
         {"$push": {
         "word_explanations": {"$each": word_list}
@@ -53,6 +52,7 @@ def make_word_explanation_update(chunk_id: str, words: list) -> UpdateOne:
     Args:
         chunk_id (str): The chunk identifier.
         words (list): The list of explained word packs.
+        chunks_collection: The MongoDB collection for chunks.
 
     Returns:
         UpdateOne: A bulk update operation for MongoDB.
@@ -67,20 +67,20 @@ def make_word_explanation_update(chunk_id: str, words: list) -> UpdateOne:
         }
     )
 
-async def if_there_are_word_explain(chunk_id):
+async def if_there_are_word_explain(chunk_id, chunks_collection):
 
     
-    doc = await articles_chunks.find_one({"chunk_id": chunk_id})
+    doc = await chunks_collection.find_one({"chunk_id": chunk_id})
     if doc.get("status", {}).get("word_explained") == True:
         log_with_func_name("✅ Word explainer already done, skipping.")
         return True
     else:
         return False
 
-async def store_combined_word_explanation_to_mongodb(article_id):
-
+async def store_combined_word_explanation_to_mongodb(article_id, chunked_collection, raw_collection):
+    
     log_with_func_name("Storing combined word explanations...")
-    cursor = await articles_chunks.find({"article_id": article_id}).to_list(None)
+    cursor = await chunked_collection.find({"article_id": article_id}).to_list(None)
 
     seen_words = set()
     unique_word_packs = []
@@ -93,22 +93,11 @@ async def store_combined_word_explanation_to_mongodb(article_id):
                 seen_words.add(word)
                 unique_word_packs.append(pack)
         
-    result = await articles_raw.update_one(
+    result = await raw_collection.update_one(
         {"_id": article_id},
         {"$set": {"word_explanations": unique_word_packs}},
         upsert=True
     )
-    
-
-    # Check if the document was found and modified
-    if result.matched_count > 0:
-        if result.modified_count > 0:
-            print("✅ word explain Update succeeded!")
-        else:
-            print("⚠️ word explain service talking : Document found, but no changes were made (maybe duplicates or same data).")
-    else:
-        print("❌ word explain service talking : No matching article found (article_id might be wrong).")
-    
     
 
     # Check if the document was found and modified

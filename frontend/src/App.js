@@ -1,48 +1,34 @@
 import React, { useState, useCallback } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
-import Articles from './components/content/Articles';
+import List from "./components/content/List";
 import TopBar from './components/TopBar';
 import ContentShow from './components/content/ContentShow';
 
-import UploadArticle from './components/UploadArticle';
+import Upload from './components/upload';
 
-// Hegel SVG Icon
-// const HegelHead = () => (
-//   <Link to="/" className="hegel-link" aria-label="Home">
-//     <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-//       <circle cx="32" cy="32" r="32" fill="#222" />
-//       <ellipse cx="32" cy="40" rx="18" ry="12" fill="#fff" />
-//       <ellipse cx="24" cy="28" rx="6" ry="8" fill="#fff" />
-//       <ellipse cx="40" cy="28" rx="6" ry="8" fill="#fff" />
-//       <ellipse cx="24" cy="28" rx="2.5" ry="3.5" fill="#222" />
-//       <ellipse cx="40" cy="28" rx="2.5" ry="3.5" fill="#222" />
-//       <rect x="28" y="44" width="8" height="3" rx="1.5" fill="#222" />
-//     </svg>
-//   </Link>
-// );
 
 function App() {
-  const [articles, setArticles] = useState([]);
+  const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchArticles = useCallback(() => {
+  const fetchList = useCallback((tag = 'news') => {
     setLoading(true);
-    fetch('/all_articles')
+    fetch(`/all_articles?tag=${encodeURIComponent(tag)}`)
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch articles');
         return res.json();
       })
       .then((data) => {
-        setArticles(data.articles || []);
+        setList(data.articles || []);
         setLoading(false);
       })
       .catch((err) => {
         setError(err.message);
         setLoading(false);
       });
-  }, [setArticles, setLoading, setError]);
+  }, [setList, setLoading, setError]);
 
   
 
@@ -63,10 +49,10 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/articles" element={<Articles articles={articles} loading={loading} error={error} fetchArticles={fetchArticles} />} />
-        <Route path="/content/:id" element={<ContentShow articles={articles} />} />
-        <Route path="/upload" element={<UploadArticle onSend={fetchArticles} />} />
-
+        <Route path="/articles" element={<List list={list} loading={loading} error={error} fetchList={fetchList} />} />
+        <Route path="/upload" element={<Upload />} />
+        <Route path="/content/:id" element={<ContentShow list={list} loading={loading} tag={new URLSearchParams(window.location.search).get('tag') || 'news'} fetchList={fetchList} />} />
+        
       </Routes>
     </Router>
   );

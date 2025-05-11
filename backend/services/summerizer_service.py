@@ -1,26 +1,21 @@
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from db.mongodb import articles_chunks, articles_raw
+# from db.mongodb import articles_chunks, articles_raw
+
 from pymongo import UpdateOne
 from services.utiles.print_function_name import log_with_func_name
 
-async def if_there_are_summary_summarized(chunk_id):
-    
-    doc = await articles_chunks.find_one({"chunk_id": chunk_id})
-    if doc.get("status", {}).get("summarized") == True:
-        print("✅ Summarizer already done, skipping.")
-        return True
-    else:
-        return False
+async def if_there_are_summary_summarized(chunk_id, chunks_collection):
+    doc = await chunks_collection.find_one({"chunk_id": chunk_id})
     if doc.get("status", {}).get("summarized") == True:
         print("✅ Summarizer already done, skipping.")
         return True
     else:
         return False
 
-async def store_chunked_summaries_to_mongodb(chunk_id, chunk_summary):
-    result = await articles_chunks.update_one(
+async def store_chunked_summaries_to_mongodb(chunk_id, chunk_summary, chunks_collection):
+    result = await chunks_collection.update_one(
         {"chunk_id": chunk_id},
         {"$set": {
             "summary": chunk_summary,
@@ -36,10 +31,10 @@ async def store_chunked_summaries_to_mongodb(chunk_id, chunk_summary):
     else:
         log_with_func_name("❌ No matching chunk found (chunk_id might be wrong).")
 
-async def store_combined_summaries_to_mongodb(article_id, summary):
+async def store_combined_summaries_to_mongodb(article_id, summary, raw_collection):
     log_with_func_name("Storing combined summaries...")
     log_with_func_name(f"Article ID: {article_id}")
-    result = await articles_raw.update_one(
+    result = await raw_collection.update_one(
         {"_id": article_id},
         {"$set": {"summary": summary}},
         upsert=True
@@ -53,29 +48,21 @@ async def store_combined_summaries_to_mongodb(article_id, summary):
     else:
         log_with_func_name("❌ summarizer talking :No matching article found (article_id might be wrong).")
 
-async def combine_summaries(article_id):
-    
-    chunks = await articles_chunks.find({"article_id": article_id}).to_list(None)
-    
+async def combine_summaries(article_id, chunked_collection):
+    chunks = await chunked_collection.find({"article_id": article_id}).to_list(None)
     valid_summaries = []
     missing_chunks = []
-
     for chunk in chunks:
         summary = chunk.get("summary")
-        
         if isinstance(summary, dict) and summary.get("summary").strip():
             valid_summaries.append(summary["summary"].strip())
         else:
             missing_chunks.append(chunk.get("chunk_id", "unknown"))
-
     if missing_chunks:
         log_with_func_name(f"⚠️  summarizer talking :Missing or invalid summaries for chunks: {missing_chunks}")
-    
     if not valid_summaries:
         raise ValueError(f"❌ summarizer talking : No valid summaries found for article {article_id}.")
-
     combined_summary = "\n".join(valid_summaries)
-    
     print("✅ Combined summaries successfully.")
     return combined_summary
 

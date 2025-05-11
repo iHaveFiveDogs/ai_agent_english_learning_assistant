@@ -1,10 +1,10 @@
-
 import sys
 import os
 sys.stdout.reconfigure(encoding='utf-8')
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from services.chunk_article_service import *
+from services.chunk_article_service import chunk_article, fetch_chunked_articles, upload_article_to_db, fetch_all_articles, fetch_single_article
+from db.mongodb import articles_raw, articles_chunks
 from services.word_explainer_service import *
 from services.summerizer_service import *
 from services.persona_service import *

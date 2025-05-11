@@ -1,10 +1,11 @@
-
 import sys
 import os
 sys.stdout.reconfigure(encoding='utf-8')
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from services.chunk_article_service import *
+from services.chunk_article_service import chunk_article, fetch_chunked_articles, upload_article_to_db, fetch_all_articles, fetch_single_article
+from db.mongodb import articles_raw, articles_chunks
+
 from services.word_explainer_service import *
 from services.summerizer_service import *
 from services.persona_service import *
@@ -23,7 +24,7 @@ from models.upload_article_agentGraph_state import wordexplainerBuilder
 # --- Word Explanation Subgraph ---
 async def should_explain(state):
     if state.get("decision", {}).get("explain_words") and state.get("decision", {}).get("word_list"):
-        if not await if_there_are_word_explain(state["chunk_id"]):
+        if not await if_there_are_word_explain(state["chunk_id"], state["chunked_collection"]):
             return {**state, "skip": False}
     return {**state, "skip": True}
 

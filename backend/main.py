@@ -4,12 +4,9 @@ from dotenv import load_dotenv
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from routes.upload_article import router as upload_article_router
-from routes.welcome import router as welcome_router
-from routes.explain_article import router as explain_article_router
-from routes.all_article import router as all_article_router
-from routes.agent_langraph_route import router as agent_langraph_router
-from routes.dictionary import router as dictionary_router
+
+from routes.learning_tools import router as learning_tools_router
+from routes.article_news import router as article_news_router
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -31,10 +28,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(upload_article_router)
-app.include_router(welcome_router)
-app.include_router(explain_article_router)
-app.include_router(all_article_router)
-app.include_router(agent_langraph_router)
-app.include_router(dictionary_router)
+app.include_router(learning_tools_router)
+app.include_router(article_news_router)
 

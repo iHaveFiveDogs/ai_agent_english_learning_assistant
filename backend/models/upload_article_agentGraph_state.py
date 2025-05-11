@@ -2,6 +2,7 @@ from typing import TypedDict, Optional
 from langgraph.graph import StateGraph
 from bson import ObjectId 
 
+
 class AlfoState(TypedDict, total=False):
     article_id: ObjectId
     chunk_id: str
@@ -19,6 +20,9 @@ class AlfoState(TypedDict, total=False):
     persona_updates: list[dict]       # ✅ Add this
     chunks: list
     combined_summary: str 
+    raw_collection: str
+    chunked_collection: str
+    tag: str
 
 # 4. Build the graph
 alfoBuilder = StateGraph(AlfoState)

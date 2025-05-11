@@ -9,13 +9,14 @@ from services.utiles.print_function_name import log_with_func_name
 from ai_service.chain.summarizer_chain import summarizer_chain
 import time
 
-async def summarizer_handle_summary(chunk):
+async def summarizer_handle_summary(chunk, chunked_collection):
     # Invoke summarizer chain
     try:
         start = time.time()
         print(f"Calling summarizer_chain.invoke... at {start}")
         response = summarizer_chain.invoke({
-            "chunk_text": chunk
+            "chunk_text": chunk,
+            "chunked_collection": chunked_collection
         })
         print(f"summarizer_chain.invoke returned at {time.time()} (elapsed: {time.time() - start:.2f}s)")
 
@@ -66,7 +67,7 @@ async def summarizer_handle_summary(chunk):
         log_error(json_content, e)
         return chunk # Return chunk_text if an exception occurs
     
-async def summarize_large_combined_text(combined_summary_text, chunk_word_limit=800):
+async def summarize_large_combined_text(combined_summary_text, chunked_collection, chunk_word_limit=800):
     log_with_func_name("Summarizing large combined text...")
     # 1. Split combined text
     words = combined_summary_text.split()
@@ -78,7 +79,7 @@ async def summarize_large_combined_text(combined_summary_text, chunk_word_limit=
     for idx, small_chunk in enumerate(summary_chunks):
         log_with_func_name(f"🌟 Summarizing sub-chunk {idx+1}/{len(summary_chunks)}...")
 
-        summarized_chunk = await summarizer_handle_summary(small_chunk)
+        summarized_chunk = await summarizer_handle_summary(small_chunk, chunked_collection)
 
         if isinstance(summarized_chunk, dict) and 'summary' in summarized_chunk:
             final_summaries.append(summarized_chunk["summary"])

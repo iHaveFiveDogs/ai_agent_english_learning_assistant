@@ -1,5 +1,23 @@
 /* Content component styles */
 
+.delete-article-btn {
+  color: #222;
+  transition: color 0.18s, transform 0.28s;
+}
+.delete-article-btn:hover {
+  color: #222;
+  transform: rotate(180deg);
+}
+
+
+.delete-article-btn {
+  transition: color 0.18s;
+}
+.delete-article-btn:hover {
+  color: #000;
+}
+
+
 .content-layout {
   display: flex;
   align-items: stretch;
