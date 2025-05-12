@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import TopBar from '../TopBar';
+import EditArticleModal, { EditIcon } from './EditArticleModal';
 import List from './List';
 import Dashboard from './Dashboard';
 import ExplainableWrapper from '../wrapper/ExplainableWrapper';
@@ -113,6 +114,7 @@ function Content({ list, loading, tag, fetchList }) {
   
   const navigate = useNavigate();
   const [deleting, setDeleting] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
 
   const handleDelete = async () => {
     if (!id || !tag) return;
@@ -140,40 +142,68 @@ function Content({ list, loading, tag, fetchList }) {
   };
 
   return (
-    <div className="content-page">
+    <div className="content-page" style={{marginTop:0,paddingTop:0}}>
       <TopBar />
       <div className="content-layout">
         {/* Article Content */}
         <div className="article-panel" style={{ position: 'relative' }}>
            {currentArticle && (
-            <button
-              className="delete-article-btn"
-              style={{
-                position: 'absolute',
-                top: 12,
-                right: 12,
-                background: 'none',
-                color: '#222',
-                border: 'none',
-                borderRadius: '50%',
-                width: 32,
-                height: 32,
-                fontWeight: 'bold',
-                fontSize: 22,
-                cursor: deleting ? 'wait' : 'pointer',
-                opacity: deleting ? 0.5 : 1,
-                zIndex: 10,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'background 0.15s',
+            <div style={{ position: 'absolute', top: 12, right: 12, display: 'flex', gap: 8, zIndex: 10 }}>
+              <button
+                className="delete-article-btn"
+                style={{
+                  background: 'none',
+                  color: '#222',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: 32,
+                  height: 32,
+                  fontWeight: 'bold',
+                  fontSize: 22,
+                  cursor: deleting ? 'wait' : 'pointer',
+                  opacity: deleting ? 0.5 : 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'background 0.15s',
+                }}
+                disabled={deleting}
+                title="Delete article"
+                onClick={handleDelete}
+              >
+                {deleting ? <span style={{fontSize:14}}>...</span> : '×'}
+              </button>
+              {/* Edit icon */}
+              <button
+                className="edit-article-btn"
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+                title="Edit article"
+                onClick={() => setShowEdit(true)}
+                disabled={deleting}
+              >
+                <EditIcon />
+              </button>
+            </div>
+          )}
+          {/* Edit Modal */}
+          {showEdit && (
+            <EditArticleModal
+              open={showEdit}
+              onClose={() => setShowEdit(false)}
+              articleId={id}
+              tag={tag}
+              onSend={async () => {
+                // Refetch article after edit
+                try {
+                  const res = await fetch(`/single_article?article_id=${encodeURIComponent(id)}&tag=${encodeURIComponent(tag || 'news')}`);
+                  if (!res.ok) throw new Error('Failed to fetch article');
+                  const data = await res.json();
+                  setCurrentArticle(data.article || data);
+                } catch (e) {
+                  // Optionally handle error
+                }
               }}
-              disabled={deleting}
-              title="Delete article"
-              onClick={handleDelete}
-            >
-              {deleting ? <span style={{fontSize:14}}>...</span> : '×'}
-            </button>
+            />
           )}
           <Link to={`/articles?tag=${encodeURIComponent(tag || 'news')}`} className="back-link">&larr; Back to List</Link>
           {fetchingSingle ? (
@@ -189,7 +219,12 @@ function Content({ list, loading, tag, fetchList }) {
           ) : currentArticle ? (
             <>
               <h2 className="article-title">{currentArticle.title}</h2>
-<p style={{ color: '#1976d2', fontWeight: 500, margin: '6px 0 18px 0' }}>Tag: {tag}</p>
+              <div style={{ display: 'flex', gap: 24, alignItems: 'center', margin: '6px 0 18px 0' }}>
+                <span style={{ color: '#1976d2', fontWeight: 500, fontSize: '1.08rem' }}>Tag: {tag}</span>
+                {currentArticle.source && (
+                  <span style={{ color: '#1976d2', fontWeight: 500, fontSize: '1.08rem' }}>Source: {currentArticle.source}</span>
+                )}
+              </div>
               <ExplainableWrapper>
                 <div className="article-body">
                   {highlightWordsInContent(currentArticle.content, highlightWord)}

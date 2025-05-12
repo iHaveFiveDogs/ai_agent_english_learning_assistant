@@ -4,8 +4,8 @@ sys.stdout.reconfigure(encoding='utf-8')
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
-from langchain.embeddings import OllamaEmbeddings  # or OpenAIEmbeddings
-from langchain.vectorstores import Chroma
+from langchain_ollama import OllamaEmbeddings  # or OpenAIEmbeddings
+from langchain_chroma import Chroma
 from langchain.schema import Document
 from services.persona_service import *
 from langchain.text_splitter import RecursiveCharacterTextSplitter

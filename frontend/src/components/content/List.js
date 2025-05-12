@@ -22,6 +22,13 @@ function List({ list, loading, error, fetchList }) {
 
   // Fetch articles when tag changes or after upload redirect
   useEffect(() => {
+    if (sessionStorage.getItem('articleListNeedsRefresh')) {
+      if (fetchList) fetchList(tag);
+      sessionStorage.removeItem('articleListNeedsRefresh');
+    }
+  }, [fetchList, tag]);
+
+  useEffect(() => {
     if (location.state && location.state.fromUpload && !hasFetchedAfterUpload.current) {
       setShowNewArticleMsg(true);
       if (fetchList) fetchList(tag);
@@ -34,6 +41,12 @@ function List({ list, loading, error, fetchList }) {
 
   // Hide new article message when a new article arrives
   useEffect(() => {
+    // Restore scroll position if available
+    const savedScroll = sessionStorage.getItem('articleListScroll');
+    if (savedScroll) {
+      window.scrollTo(0, parseInt(savedScroll, 10));
+      sessionStorage.removeItem('articleListScroll');
+    }
     if (
       showNewArticleMsg &&
       list &&
@@ -42,7 +55,7 @@ function List({ list, loading, error, fetchList }) {
       setShowNewArticleMsg(false);
     }
     prevArticlesLength.current = list ? list.length : 0;
-  }, [list, showNewArticleMsg]);
+  }, [list, loading, error, tag, showNewArticleMsg]);
 
   // Sort articles by newest upload_date first
   const sortedArticles = [...(list || [])].sort((a, b) => {
@@ -56,6 +69,8 @@ function List({ list, loading, error, fetchList }) {
   });
 
   const handleTitleClick = (id) => {
+    // Save scroll position before navigating
+    sessionStorage.setItem('articleListScroll', window.scrollY.toString());
     navigate(`/content/${id}?tag=${encodeURIComponent(tag)}`);
   };
 
@@ -77,7 +92,7 @@ function List({ list, loading, error, fetchList }) {
   };
 
   return (
-    <div className="articles-page">
+    <div className="articles-page" style={{marginTop:0,paddingTop:0}}>
       <TopBar />
       {showNewArticleMsg && (
         <p style={{ textAlign: 'center', fontWeight: 600, color: '#1976d2', fontSize: '1.18rem', margin: '24px 0' }}>
@@ -95,7 +110,7 @@ function List({ list, loading, error, fetchList }) {
           />
         ))}
       </div>
-      )}
+      
     </div>
   );
 }

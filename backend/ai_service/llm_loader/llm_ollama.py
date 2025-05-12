@@ -1,5 +1,5 @@
 import json
-from langchain_community.chat_models import ChatOllama
+from langchain_ollama import ChatOllama
 import os
 
 def load_llm(model_key, config_path=None):

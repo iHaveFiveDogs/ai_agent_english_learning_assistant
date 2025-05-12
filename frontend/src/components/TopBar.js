@@ -60,6 +60,7 @@ const TopBar = () => {
           </div>
         )}
         <nav style={{ display: 'flex', gap: '18px', alignItems: 'center', marginLeft: 12 }}>
+          <Link to="/" className="nav-link">Home</Link>
           <Link to="/articles?tag=news" className="nav-link">Articles</Link>
           <Link to="/articles?tag=novels" className="nav-link">Novels</Link>
         </nav>

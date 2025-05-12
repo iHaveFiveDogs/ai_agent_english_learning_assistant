@@ -6,7 +6,7 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from routes.learning_tools import router as learning_tools_router
-from routes.article_news import router as article_news_router
+from routes.content_operator import router as content_operator_router
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -29,5 +29,5 @@ app.add_middleware(
 )
 
 app.include_router(learning_tools_router)
-app.include_router(article_news_router)
+app.include_router(content_operator_router)
 
