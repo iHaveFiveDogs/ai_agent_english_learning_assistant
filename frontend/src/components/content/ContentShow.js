@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import TopBar from '../TopBar';
 import EditArticleModal, { EditIcon } from './EditArticleModal';
@@ -6,14 +7,23 @@ import List from './List';
 import Dashboard from './Dashboard';
 import ExplainableWrapper from '../wrapper/ExplainableWrapper';
 import './ContentShow.css';
+import { useLocation } from 'react-router-dom';
 
-function Content({ list, loading, tag, fetchList }) {
+function Content({ list, loading, fetchList }) {
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const tag = query.get('tag') || 'news';
   const { id } = useParams();
   const [currentArticle, setCurrentArticle] = useState(null);
   const [highlightWord, setHighlightWord] = useState(null);
   const [dictionaryResult, setDictionaryResult] = useState(null);
   const [fetchingSingle, setFetchingSingle] = useState(false);
   const [notFound, setNotFound] = useState(false);
+  // --- ADDED: State and hooks for modal, navigation, and deleting ---
+  const [showEdit, setShowEdit] = useState(false);
+  const [shouldNavigateAfterEdit, setShouldNavigateAfterEdit] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     
@@ -26,7 +36,8 @@ function Content({ list, loading, tag, fetchList }) {
       setCurrentArticle(found);
       window.__ARTICLE_CONTEXT__ = {
         articleId: found._id,
-        articleContent: found.content
+        articleContent: found.content,
+        tag: found.tag || tag
       };
       return;
     }
@@ -46,7 +57,8 @@ function Content({ list, loading, tag, fetchList }) {
           if (data.article) {
             window.__ARTICLE_CONTEXT__ = {
               articleId: data.article._id,
-              articleContent: data.article.content
+              articleContent: data.article.content,
+              tag: data.article.tag || tag
             };
           } else {
             setNotFound(true);
@@ -78,7 +90,8 @@ function Content({ list, loading, tag, fetchList }) {
           if (data.article) {
             window.__ARTICLE_CONTEXT__ = {
               articleId: data.article._id,
-              articleContent: data.article.content
+              articleContent: data.article.content,
+              tag: data.article.tag || tag
             };
           } else {
             setNotFound(true);
@@ -98,6 +111,15 @@ function Content({ list, loading, tag, fetchList }) {
   const wordExplanations = currentArticle && Array.isArray(currentArticle.word_explanations) ? currentArticle.word_explanations : [];
   const summary = currentArticle && currentArticle.summary ? currentArticle.summary : '';
 
+
+  // Navigate after edit and modal close
+  useEffect(() => {
+    if (!showEdit && shouldNavigateAfterEdit) {
+      setShouldNavigateAfterEdit(false);
+      navigate(`/articles?tag=${encodeURIComponent(tag || 'news')}`);
+    }
+  }, [showEdit, shouldNavigateAfterEdit, navigate, tag]);
+
   // Helper: highlight all occurrences of the word in the article content
   function highlightWordsInContent(content, word) {
     if (!word || typeof content !== 'string') return content;
@@ -112,9 +134,6 @@ function Content({ list, loading, tag, fetchList }) {
   }
 
   
-  const navigate = useNavigate();
-  const [deleting, setDeleting] = useState(false);
-  const [showEdit, setShowEdit] = useState(false);
 
   const handleDelete = async () => {
     if (!id || !tag) return;
@@ -199,6 +218,7 @@ function Content({ list, loading, tag, fetchList }) {
                   if (!res.ok) throw new Error('Failed to fetch article');
                   const data = await res.json();
                   setCurrentArticle(data.article || data);
+                  setShouldNavigateAfterEdit(true); // set flag to trigger navigation after modal closes
                 } catch (e) {
                   // Optionally handle error
                 }
@@ -235,7 +255,18 @@ function Content({ list, loading, tag, fetchList }) {
         </div>
 
         {/* Dashboard */}
-        <Dashboard wordList={wordExplanations} summary={summary} onWordClick={setHighlightWord} highlightWord={highlightWord} dictionaryResult={dictionaryResult} setDictionaryResult={setDictionaryResult} articleId={id}/>
+        <Dashboard
+          wordList={wordExplanations}
+          summary={summary}
+          onWordClick={w => setHighlightWord(w.word)}
+          highlightWord={highlightWord}
+          dictionaryResult={dictionaryResult}
+          setDictionaryResult={setDictionaryResult}
+          articleId={currentArticle ? currentArticle._id : null}
+          tag={tag}
+          expression_explanation={currentArticle && Array.isArray(currentArticle.expression_explanation) ? currentArticle.expression_explanation : []}
+          sentence_explanation={currentArticle && Array.isArray(currentArticle.sentence_explanation) ? currentArticle.sentence_explanation : []}
+        />
       </div>
     </div>
   );

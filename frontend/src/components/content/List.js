@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import TopBar from '../TopBar';
 import ArticleCard from '../wrapper/ArticleCard';
+import Upload from '../upload';
 import './List.css';
 
 function List({ list, loading, error, fetchList }) {
+  const [articles, setArticles] = useState(list || []);
   const navigate = useNavigate();
   const [showUpload, setShowUpload] = useState(false);
   const [showNewArticleMsg, setShowNewArticleMsg] = useState(false);
@@ -19,6 +21,19 @@ function List({ list, loading, error, fetchList }) {
   const hasFetchedInitial = React.useRef(false);
   // Track previous articles length to detect new article arrival
   const prevArticlesLength = React.useRef(list ? list.length : 0);
+
+  // Keep articles state in sync with list prop
+  useEffect(() => {
+    setArticles(list || []);
+  }, [list]);
+
+  // Delete handler
+  const handleDelete = (articleId) => {
+    // For demo: Remove from UI only. Replace with API call as needed.
+    setArticles(prev => prev.filter(a => a._id !== articleId));
+    // Optionally: call backend delete and refetch list
+    // if (fetchList) fetchList(tag);
+  };
 
   // Fetch articles when tag changes or after upload redirect
   useEffect(() => {
@@ -58,7 +73,7 @@ function List({ list, loading, error, fetchList }) {
   }, [list, loading, error, tag, showNewArticleMsg]);
 
   // Sort articles by newest upload_date first
-  const sortedArticles = [...(list || [])].sort((a, b) => {
+  const sortedArticles = [...(articles || [])].sort((a, b) => {
     if (a.upload_date && b.upload_date) {
       return new Date(b.upload_date) - new Date(a.upload_date);
     }
@@ -84,11 +99,12 @@ function List({ list, loading, error, fetchList }) {
     return () => window.removeEventListener('popstate', updateUpload);
   }, []);
 
-  const handleUploadSend = (article) => {
+  const handleUploadSend = async (article) => {
     // TODO: Implement the actual upload logic (API call)
-    alert(`Article uploaded!\nTitle: ${article.title}\nSource: ${article.source}\nContent: ${article.content.slice(0, 40)}...`);
+    // Example: await api.uploadArticle(article);
     setShowUpload(false);
-    window.history.replaceState({}, '', '/articles');
+    if (fetchList) fetchList(tag); // Refresh list for the current tag
+    navigate(`/articles?tag=${encodeURIComponent(tag)}`); // Switch to list view for the tag
   };
 
   return (
@@ -107,10 +123,17 @@ function List({ list, loading, error, fetchList }) {
             key={article._id ? String(article._id) : idx}
             article={article}
             onClick={handleTitleClick}
+            onDelete={handleDelete}
           />
         ))}
       </div>
-      
+      {showUpload && (
+        <Upload
+          onSend={handleUploadSend}
+          onClose={() => setShowUpload(false)}
+          tag={tag}
+        />
+      )}
     </div>
   );
 }

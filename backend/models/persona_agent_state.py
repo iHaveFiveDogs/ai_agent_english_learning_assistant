@@ -8,6 +8,7 @@ class PersonaAgentState(TypedDict):
     context: Optional[str]
     answer: Optional[str]
     article_id: ObjectId
+    tag: Optional[str]
 
 # 4. Build the graph
 personaAgentBuilder = StateGraph(PersonaAgentState)

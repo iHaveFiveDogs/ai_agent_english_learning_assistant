@@ -3,16 +3,17 @@ import os
 sys.stdout.reconfigure(encoding='utf-8')
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+from langchain.embeddings import OllamaEmbeddings  # or OpenAIEmbeddings
+from langchain.vectorstores import Chroma
 
-from langchain_ollama import OllamaEmbeddings  # or OpenAIEmbeddings
-from langchain_chroma import Chroma
 from langchain.schema import Document
 from services.persona_service import *
+from services.utiles.collection_utils import get_collections_for_tag
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import hashlib,json
 from models.persona_agent_state import PersonaAgentState
 
-embedding_fn = OllamaEmbeddings(model="nomic-embed-text")
+embedding_fn = OllamaEmbeddings(model="nomic-embed-text:latest")
 splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 
 
@@ -72,18 +73,20 @@ async def get_retriever(raw_inputs):
     await build_vector_store_from_text_sources(raw_inputs)
     return vectorstore.as_retriever(search_kwargs={"k": 5})
 
-async def get_relevant_docs_by_role(role: str, query: str) -> list[Document]:
-    raw_docs = await gather_single_persona_docs(role)
+async def get_relevant_docs_by_role(role: str, query: str, tag: str) -> list[Document]:
+    _, chunk_collection, persona_collection = get_collections_for_tag(tag)
+    raw_docs = await gather_single_persona_docs(role, persona_collection,chunk_collection)
     if not raw_docs:
         print(f"⚠️ No raw docs found for role: {role}")
         return []
     retriever = await get_retriever(raw_docs)
     return await similarity_search_with_filter(raw_docs, query, role)
+    return await similarity_search_with_filter(raw_docs, query, role)
 
 #langraph
 async def fetch_context_node(state: PersonaAgentState):
     print(f"🔍 Current state at [NODE_NAME]: {state}")
-    docs = await get_relevant_docs_by_role(state["role"], state["query"])
+    docs = await get_relevant_docs_by_role(state["role"], state["query"], state["tag"])
     context = "\n".join([doc.page_content for doc in docs]) if docs else "No relevant docs"
     return {**state, "context": context}
 

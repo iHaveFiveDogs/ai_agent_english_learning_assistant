@@ -12,12 +12,13 @@ from services.word_explainer_service import *
 from services.utiles.lemmtize_word import lemmatize_word
 from services.utiles.print_function_name import log_with_func_name
 
-from ai_service.chain.word_explainer_chain import *
+
 
 import json
 import asyncio
 import time
 
+from ai_service.chain.word_explainer_chain import *
 
 async def fetch_or_cache_word_info(word):
     base_word = lemmatize_word(word)
@@ -30,6 +31,7 @@ async def fetch_or_cache_word_info(word):
     for attempt in range(3):
         try:
             start = time.time()
+            
             print(f"Calling word_cached_chain.ainvoke... at {start}")
             response = await word_cached_chain.ainvoke({"word": base_word})
             print(f"word_cached_chain.ainvoke returned at {time.time()} (elapsed: {time.time() - start:.2f}s)")
@@ -57,10 +59,11 @@ async def fetch_contextual_explanation(word, sentence):
     for attempt in range(3):
         try:
             start = time.time()
+            
             print(f"Calling contextual_explainer_chain.ainvoke... at {start}")
             response = await contextual_explainer_chain.ainvoke({"word": word, "sentence": sentence})
             print(f"contextual_explainer_chain.ainvoke returned at {time.time()} (elapsed: {time.time() - start:.2f}s)")
-            log_with_func_name(f"🧠 Brain is done explaining '{word}' in context...")
+            log_with_func_name(f"🧠word explainer is done explaining '{word}' in context...")
             content = clean_content(response.content)
             json_block = extract_json_from_response(content)
             if not json_block:
@@ -90,7 +93,13 @@ async def word_explainer_handle_word_sentences(chunk_id, chunk, word_list):
             failed_words.append({"word": original_word})
             continue
 
-        context_result = await fetch_contextual_explanation(original_word, sentence)
+        try:
+            context_result = await fetch_contextual_explanation(original_word, sentence)
+        except Exception as e:
+            log_with_func_name(f"⚠️ Contextual explanation failed for '{original_word}' (attempt {attempt+1})")
+            log_error(sentence, e)
+            await asyncio.sleep(1)
+            context_result = {}
 
         if context_result:
             explained_words.append({
@@ -175,6 +184,7 @@ async def precache_ipa_etymology_from_txt(txt_path, batch_size=10):
                 log_with_func_name(f"⚠️ Batch failed. Falling back to word-by-word: {batch}")
                 for word in batch:
                     try:
+                        word_cached_chain = word_cached_prompt | load_llm('word_explainer')
                         single_prompt = {"word": word}
                         single_response = await word_cached_chain.ainvoke(single_prompt)  # define this chain
                         single_content = clean_content(single_response.content)

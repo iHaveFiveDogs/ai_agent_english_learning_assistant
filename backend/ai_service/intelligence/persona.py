@@ -4,6 +4,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 from models.persona_agent_state import PersonaAgentState
 from services.utiles.json_clean import *
+from services.utiles.collection_utils import get_collections_for_tag
 from services.persona_service import *
 from ai_service.chain.persona_chain import *
 from ai_service.memory.persona_vector import *
@@ -85,34 +86,48 @@ async def persona_chat_stream(role, context, query):
 
 #langraph version
 async def detect_role_node(state: PersonaAgentState):
-    
+    if "tag" in state:
+        print(f"[detect_role_node] tag exists in state: {state['tag']}")
+    else:
+        print(f"[detect_role_node] tag is MISSING in state! State keys: {list(state.keys())}")
     persona_list = await fetch_all_persona_names()
     role = await persona_chain_detect_role(state["query"], persona_list)
-
     return {**state, "role": role}
 
 async def random_role_node(state: PersonaAgentState):
-        
-    persona_list = await fetch_all_persona_names_through_article(state["article_id"])
+    if "tag" in state:
+        print(f"[random_role_node] tag exists in state: {state['tag']}")
+    else:
+        print(f"[random_role_node] tag is MISSING in state! State keys: {list(state.keys())}")
+    raw_collection, _, _ = get_collections_for_tag(state["tag"])
+    persona_list = await fetch_all_persona_names_through_article(state["article_id"], raw_collection)
     if not persona_list:
         role = 'teacher'
     else:
         role = random.choice(persona_list)
-
     return {**state, "role": role}
 
 async def generate_answer_node(state: PersonaAgentState):
-    
+    if "tag" in state:
+        print(f"[generate_answer_node] tag exists in state: {state['tag']}")
+    else:
+        print(f"[generate_answer_node] tag is MISSING in state! State keys: {list(state.keys())}")
     result = await persona_handle_user_question(state["role"], state["context"], state["query"])
     return {**state, "answer": result.content if result else "No response."}
 
 async def chat_with_user_node(state: PersonaAgentState):
-    
+    if "tag" in state:
+        print(f"[chat_with_user_node] tag exists in state: {state['tag']}")
+    else:
+        print(f"[chat_with_user_node] tag is MISSING in state! State keys: {list(state.keys())}")
     result = await persona_chat_with_user(state["role"], state["context"], state["query"])
     return {**state, "answer": result.content if result else "No response."}
 
 async def chat_with_user_stream_node(state: PersonaAgentState):
-    
+    if "tag" in state:
+        print(f"[chat_with_user_stream_node] tag exists in state: {state['tag']}")
+    else:
+        print(f"[chat_with_user_stream_node] tag is MISSING in state! State keys: {list(state.keys())}")
     stream = persona_chat_chain.astream({
         "persona": state["role"],
         "context": state["context"],

@@ -4,6 +4,7 @@ import './App.css';
 import List from "./components/content/List";
 import TopBar from './components/TopBar';
 import ContentShow from './components/content/ContentShow';
+import FloatingChatButton from './components/FloatingChatButton';
 
 import Upload from './components/upload';
 
@@ -46,15 +47,17 @@ function App() {
   }
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/articles" element={<List list={list} loading={loading} error={error} fetchList={fetchList} />} />
-        <Route path="/upload" element={<Upload />} />
-        <Route path="/content/:id" element={<ContentShow list={list} loading={loading} tag={new URLSearchParams(window.location.search).get('tag') || 'news'} fetchList={fetchList} />} />
-        
-      </Routes>
-    </Router>
+    <>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/articles" element={<List list={list} loading={loading} error={error} fetchList={fetchList} />} />
+          <Route path="/upload" element={<Upload />} />
+          <Route path="/content/:id" element={<ContentShow list={list} loading={loading} tag={new URLSearchParams(window.location.search).get('tag') || 'news'} fetchList={fetchList} />} />
+        </Routes>
+      </Router>
+      <FloatingChatButton />
+    </>
   );
 }
 

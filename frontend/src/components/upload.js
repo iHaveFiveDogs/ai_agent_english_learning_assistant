@@ -1,14 +1,23 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './upload.css';
 
-const Upload = ({ onSend }) => {
+const Upload = ({ onSend, tag: propTag }) => {
+  const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [source, setSource] = useState('');
   const [content, setContent] = useState('');
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [tag, setTag] = useState('news');
+  const [tag, setTag] = useState(propTag || 'news');
+
+  // Keep tag in sync with propTag if it changes
+  React.useEffect(() => {
+    if (propTag && propTag !== tag) {
+      setTag(propTag);
+    }
+  }, [propTag]);
 
   const handleClear = () => {
     setTitle('');
@@ -38,6 +47,8 @@ const Upload = ({ onSend }) => {
       await response.json();
       setSuccess('Article uploaded successfully!');
       setSending(false);
+      // Redirect to List page filtered by tag
+      navigate(`/articles?tag=${encodeURIComponent(tag)}`);
       if (typeof onSend === 'function') onSend();
     } catch (e) {
       setError(e.message || 'Upload failed');
@@ -49,15 +60,6 @@ const Upload = ({ onSend }) => {
     <div className="upload-article-panel">
       <h2 className="upload-article-title">Upload Article</h2>
       {error && <div className="upload-article-error">{error}</div>}
-      {success && tag === 'novels' ? (
-        <div className="upload-article-success">
-          {success}<br />
-          <span style={{fontSize:'0.97rem',color:'#444'}}>fetch <code>/all_articles?tag=novels</code></span><br />
-          <a href="/articles?tag=novels" style={{color:'#1976d2',fontWeight:600}}>Go to Novel List</a>
-        </div>
-      ) : success && (
-        <div className="upload-article-success">{success}</div>
-      )}
       <form className="upload-article-form" onSubmit={e => e.preventDefault()}>
         <input
           type="text"

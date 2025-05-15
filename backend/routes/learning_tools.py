@@ -12,7 +12,11 @@ router = APIRouter()
 async def agent_langraph_endpoint(request: Request):
     data = await request.json()
     # Call the async function from agent_langraph
-    answer = await agent_langraph_chat(data)
+    tag = data.get("tag") or request.query_params.get("tag")
+    print("[agent_langraph_endpoint] tag:", tag)
+    if not tag:
+        print("[agent_langraph_endpoint] tag is missing in both body and query params!")
+    answer = await agent_langraph_chat(data, tag)
     return JSONResponse(content=answer)
 
 @router.post("/dictionary")

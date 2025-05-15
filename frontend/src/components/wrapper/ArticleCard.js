@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ArticleCard({ article, onClick }) {
+function ArticleCard({ article, onClick, onDelete }) {
   return (
     <div
       className="article-card"
@@ -16,6 +16,11 @@ function ArticleCard({ article, onClick }) {
         <button
           className="article-delete-btn"
           style={{ background: 'none', border: 'none', fontSize: 20, color: '#888', cursor: 'pointer', padding: 0 }}
+          onClick={e => {
+            e.stopPropagation();
+            if (onDelete) onDelete(article._id);
+          }}
+          title="Delete this article"
         >
           &times;
         </button>

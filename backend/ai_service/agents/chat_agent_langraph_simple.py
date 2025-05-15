@@ -35,16 +35,19 @@ chat_graph = graph_builder.compile()
 import asyncio
 
 # --- Function to receive a query in JSON and return answer in JSON ---
-async def agent_langraph_chat(input_json: dict) -> dict:
+async def agent_langraph_chat(input_json: dict, tag: str) -> dict:
     """
     Receives a JSON dict with a 'query' field, runs the persona agent graph, returns answer in JSON.
     Example input: {"query": "What would a businessman think about TikTok bans?"}
     Returns: {"answer": <str>}
     """
+    print("[agent_langraph_chat] tag:", tag)
     initial_state = {
         "query": input_json["query"],
-        "article_id": ObjectId(input_json["article_id"])
+        "article_id": ObjectId(input_json["article_id"]),
+        "tag": tag
     }
+    print("[agent_langraph_chat] initial_state tag:", initial_state["tag"])
     final_state = await chat_graph.ainvoke(initial_state)
     return {"answer": final_state.get("answer", "")}
 

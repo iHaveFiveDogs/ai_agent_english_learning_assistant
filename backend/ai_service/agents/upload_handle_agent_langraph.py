@@ -6,94 +6,54 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 
 from services.chunk_article_service import *
 from services.word_explainer_service import *
+from services.expressions_explainer_service import *
 from services.summerizer_service import *
 from services.persona_service import *
+from services.sentences_explainer_service import store_combined_sentence_explanation_to_mongodb
 from services.utiles.json_clean import *
 from services.utiles.collection_utils import get_collections_for_tag
 
-
-from ai_service.intelligence.word_explainer import *
-from ai_service.intelligence.summarizer import *
-from ai_service.intelligence.persona import *
-from ai_service.chain.alfo_chain import *
+from ai_service.intelligence.alfo_graph import prepare_chunk_states
+from ai_service.intelligence.word_explainer_graph import handle_all_word_chunks
+from ai_service.intelligence.summarizer_graph import handle_all_summary_chunks
+from ai_service.intelligence.summarizer import summarize_large_combined_text
+from ai_service.intelligence.persona_graph import handle_all_persona_chunks
+from ai_service.intelligence.expressions_explainer_graph import handle_all_expression_chunks
+from ai_service.intelligence.sentences_explainer_graph import handle_all_sentence_chunks
 from langchain_core.runnables import RunnableLambda
-from intelligence.each_chunker_handle_node import alfo_chunk_subgraph
-from models.upload_article_agentGraph_state import alfoBuilder
-import time
-from models.article_model import Article
+from models.upload_article_agentGraph_state import MergeState,mergeBuilder
+from pprint import pprint
 
-
-# --- Node: Load Chunks ---
-async def load_chunks_node(state):
-    # Pass the tag, not the collection, to fetch_chunked_articles
-    chunks = await fetch_chunked_articles(state["article_id"], state["tag"])
-    return {**state, "chunks": chunks}
-# --- Node: Process Each Chunk ---
-async def process_chunks_node(state):
-    summary_updates, word_updates, persona_updates = [], [], []
-
-    async def process_chunk(chunk):
-        start = time.time() 
-        chunk_state = {
-            "article_id": state["article_id"],
-            "chunk_id": chunk["chunk_id"],
-            "chunk_text": clean_content(chunk["chunk_text"]),
-            "chunked_collection": state["chunked_collection"]  # Pass through for downstream use
+# --- Node: Main Dispatcher ---
+async def do_jobs(state: MergeState):
+    try:
+        raw_collection, chunk_collection, _ = get_collections_for_tag(state["tag"])
+        chunk_states = await prepare_chunk_states(state["article_id"], state["tag"])
+        
+        await asyncio.gather(
+            handle_all_summary_chunks(chunk_states, chunk_collection),
+            handle_all_word_chunks(chunk_states, chunk_collection),
+            handle_all_expression_chunks(chunk_states, chunk_collection),
+            handle_all_sentence_chunks(chunk_states, chunk_collection),
+            handle_all_persona_chunks(chunk_states, chunk_collection, state["article_id"])
+        )
+        return {
+            **state,
+            "chunked_collection": chunk_collection,
+            "raw_collection": raw_collection
         }
-        chunk_id = chunk["chunk_id"]  # ✅ Define it for logging
-        try:
-            
-            result = await alfo_chunk_subgraph.ainvoke(chunk_state)
-            
-            print(f"[DEBUG] Elapsed: {time.time() - start:.2f}s")
-            summary_update = result.get("summary_update", {})
-            word_update = result.get("word_update", {})
-            persona_update = result.get("persona_update", {})
-            if summary_update:
-                summary_updates.append(summary_update)
-                print(f"⚠️ Chunk {chunk_id}  generate a summary.")
-            else:
-                print(f"⚠️ Chunk {chunk_id} did not generate a summary.")
-            if word_update:
-                word_updates.append(word_update)
-            if persona_update:
-                persona_updates.append(persona_update)
-        except Exception as e:
-            print(f"[ERROR] Chunk {chunk['chunk_id']} failed in ainvoke: {e}")
-            log_with_func_name(f"❌ Error processing chunk {chunk['chunk_id']}: {e}")
-            raise
-    chunks = state.get("chunks", [])
-    await asyncio.gather(*(process_chunk(c) for c in chunks))
-
-    return {
-        **state,
-        "summary_updates": summary_updates,
-        "word_updates": word_updates,
-        "persona_updates": persona_updates
-    }
-
-async def bulk_write_node(state):
-    summary_updates = state.get("summary_updates", [])
-    word_updates = state.get("word_updates", [])
-    persona_updates = state.get("persona_updates", [])
-
-    if summary_updates:
-        await state["chunked_collection"].bulk_write(summary_updates)
-        log_with_func_name("✅ Summaries stored successfully.")
-    if word_updates:
-        await state["chunked_collection"].bulk_write(word_updates)
-        log_with_func_name("✅ Word explanations stored successfully.")
-    if persona_updates:
-        await state["chunked_collection"].bulk_write(persona_updates)
-        log_with_func_name("✅ Personas stored successfully.")
-    return state
-    log_with_func_name("✅ Merged duplicate personas.")
-    return state
-
-async def merge_personas_node(state):
+    except Exception as e:
+        log_with_func_name(f"❌ Failed to dispatch jobs: {repr(e)}")
+        # Return an error state so downstream nodes do not proceed with None collections
+        return {**state, "error": f"do_jobs failed: {repr(e)}"}
+# --- Node: Merge Personas ---
+async def merge_personas_node(state: MergeState):
+    if not hasattr(state["chunked_collection"], "distinct"):
+        raise TypeError(f"chunked_collection is not a collection: {type(state['chunked_collection'])} {state['chunked_collection']}")
     await merge_all_personas(state["chunked_collection"])
+    return state
 # --- Node: Combine Summaries ---
-async def combine_summaries_node(state):
+async def combine_summaries_node(state: MergeState):
     try:
         combined = await combine_summaries(state["article_id"], state["chunked_collection"])
         combined = await summarize_large_combined_text(combined, state["chunked_collection"])
@@ -102,60 +62,63 @@ async def combine_summaries_node(state):
     except Exception as e:
         log_with_func_name(f"❌ Failed to combine summaries: {e}")
         return state
-
-async def store_combined_results_node(state):
+# --- Node: Store Combined Results ---
+async def store_combined_results_node(state: MergeState):
     try:
         await store_combined_word_explanation_to_mongodb(state["article_id"], state["chunked_collection"], state["raw_collection"])
     except Exception as e:
         log_with_func_name(f"❌ Failed to store word explanations: {e}")
     try:
-        await store_combined_persona_to_mongodb(state["article_id"],state["chunked_collection"],state["raw_collection"])
+        await store_combined_persona_to_mongodb(state["article_id"], state["chunked_collection"], state["raw_collection"])
     except Exception as e:
         log_with_func_name(f"❌ Failed to store personas: {e}")
+    try:
+        await store_combined_expression_explanation_to_mongodb(state["article_id"], state["chunked_collection"], state["raw_collection"])
+    except Exception as e:
+        log_with_func_name(f"❌ Failed to store expressions: {e}")
+    try:
+        await store_combined_sentence_explanation_to_mongodb(state["article_id"], state["chunked_collection"], state["raw_collection"])
+    except Exception as e:
+        log_with_func_name(f"❌ Failed to store sentences: {e}")
     return state
+# --- Build the Merge Graph ---
+mergeBuilder.add_node("do_jobs", RunnableLambda(do_jobs))
+mergeBuilder.add_node("merge_personas", RunnableLambda(merge_personas_node))
+mergeBuilder.add_node("combine_summaries", RunnableLambda(combine_summaries_node))
+mergeBuilder.add_node("store_combined", RunnableLambda(store_combined_results_node))
 
-alfoBuilder.add_node("load_chunks", RunnableLambda(load_chunks_node))
-alfoBuilder.add_node("process_chunks", RunnableLambda(process_chunks_node))
-alfoBuilder.add_node("bulk_write", RunnableLambda(bulk_write_node))
-alfoBuilder.add_node("merge_personas", RunnableLambda(merge_personas_node))
-alfoBuilder.add_node("combine_summaries", RunnableLambda(combine_summaries_node))
-alfoBuilder.add_node("store_combined", RunnableLambda(store_combined_results_node))
+mergeBuilder.set_entry_point("do_jobs")
+mergeBuilder.add_edge("do_jobs", "merge_personas")
+mergeBuilder.add_edge("merge_personas", "combine_summaries")
+mergeBuilder.add_edge("combine_summaries", "store_combined")
+mergeBuilder.set_finish_point("store_combined")
 
-alfoBuilder.set_entry_point("load_chunks")
-alfoBuilder.add_edge("load_chunks", "process_chunks")
-alfoBuilder.add_edge("process_chunks", "bulk_write")
-alfoBuilder.add_edge("bulk_write", "merge_personas")
-alfoBuilder.add_edge("merge_personas", "combine_summaries")
-alfoBuilder.add_edge("combine_summaries", "store_combined")
-alfoBuilder.set_finish_point("store_combined")
+merge_graph = mergeBuilder.compile()
 
-alfo_article_graph = alfoBuilder.compile()
-
-
-async def upload_article_pipeline_with_langraph(article: Article , tag):
-    article_id = await upload_article_to_db(article, tag)
-    await chunk_article(article_id , tag)
-    raw_collection, chunked_collection, _ = get_collections_for_tag(tag)
-    await alfo_article_graph.ainvoke({
+async def run_merge_pipeline(article_id: str, tag: str):
+    """
+    Execute the full merge pipeline using the compiled merge_graph.
+    """
+    
+    initial_state = {
         "article_id": ObjectId(article_id),
-        "chunks": [],
+        "tag": tag,
+        "raw_collection": None,
+        "chunked_collection": None,
         "summary_updates": [],
         "word_updates": [],
-        "persona_updates": [],
-        "combined_summary": "",
-        # Optional per-chunk context — initialized as None or empty
-        "chunk_id": "",
-        "chunk_text": "",
-        "decision": {},
-        "summarize": False,
-        "explain_words": False,
-        "word_list": [],
-        "personas": [],
-        "summary_update": {},
-        "word_update": {},
-        "persona_update": {},
-        "raw_collection":raw_collection,
-        "chunked_collection":chunked_collection,
-        "tag":tag
-    })
-    return article_id
+        "expression_updates": [],
+        "key_sentence_updates": [],
+        "persona_updates": []
+    }
+    
+
+    try:
+        final_state = await merge_graph.ainvoke(initial_state)
+        print(f"[merge_pipeline] ✅ After do_jobs: {type(final_state['chunked_collection'])}")
+        log_with_func_name("✅ Merge pipeline completed successfully.")
+        return final_state
+    except Exception as e:
+        log_with_func_name(f"❌ Merge pipeline failed: {e}")
+        return {"error": str(e)}
+

@@ -40,7 +40,7 @@ persona_chat_prompt = ChatPromptTemplate.from_messages([
  "Persona: {persona}\n"
  "Question: {question}\n\n"
  "- Keep the response casual and conversational, like chatting with a real person.\n"
- "- Limit your answer to **2–4 sentences**, unless absolutely necessary.\n"
+ "- Limit your answer to **1-2 sentences**, unless absolutely necessary.\n"
  "- Don't restate the question. Don't over-explain. Avoid long introductions.\n"
  "- Do **not** use backticks, markdown, or any formatting.\n"
  "- Respond in pure JSON only, like this:\n"
