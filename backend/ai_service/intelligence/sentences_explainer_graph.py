@@ -55,7 +55,7 @@ sentence_explainer_subgraph = sentenceBuilder.compile()
 
 
 async def handle_all_sentence_chunks(decision_results: list[dict], chunked_collection):
-    assert chunked_collection is not None, "❌ chunked_collection missing from state"
+    print("\n🟦🟦🟦-------------------- handle_all_sentence_chunks start--------------------🟦🟦🟦\n")
     
     updates = []
     for chunk in decision_results:
@@ -74,25 +74,34 @@ async def handle_all_sentence_chunks(decision_results: list[dict], chunked_colle
                 "chunked_collection": chunked_collection
             }
             
-            print("\n🟦🟦🟦-------------------- LOG START: sentence_explainer_subgraph.ainvoke --------------------🟦🟦🟦\n")
-            result = await sentence_explainer_subgraph.ainvoke(state)
-            print("\n🟦🟦🟦-------------------- LOG END: sentence_explainer_subgraph.ainvoke ----------------------🟦🟦🟦\n")
-            update = result.get("key_sentence_update")
             
+            try:
+                result = await sentence_explainer_subgraph.ainvoke(state)
+                print("\n🟦🟦🟦-------------------- LOG END: sentence_explainer_subgraph.ainvoke ----------------------🟦🟦🟦\n")
+                if not isinstance(result, dict):
+                    print(f"[SENTENCE_EXPLAINER] Warning: Expected dict from ainvoke, got {type(result)}: {result}")
+                    result = {}
+                update = result.get("key_sentence_update")
+            except Exception as e:
+                print(f"[SENTENCE_EXPLAINER] Error in ainvoke for chunk {chunk.get('chunk_id')}: {e}")
+                import traceback
+                traceback.print_exc()
+                update = None
             if update:
                 updates.append(update)
         else:
-            print("\n🟧🟧🟧-------------------- LOG START: Skipping chunk --------------------🟧🟧🟧\n")
+            
             log_with_func_name(f"[SENTENCE_EXPLAINER] Skipping chunk: {chunk.get('chunk_id')} (missing required fields or extract_expressions/expressions is falsy)")
-            print("\n🟧🟧🟧-------------------- LOG END: Skipping chunk ----------------------🟧🟧🟧\n")
+            
     try:
         if updates:
             await chunked_collection.bulk_write(updates)
             log_with_func_name("✅ Sentence explanations written.")
     except Exception as e:
-        print("\n🟥🟥🟥-------------------- LOG START: Failed to write sentence explanations --------------------🟥🟥🟥\n")
+        
         log_with_func_name(f"❌ Failed to write sentence explanations: {e}")
-        print("\n🟥🟥🟥-------------------- LOG END: Failed to write sentence explanations ----------------------🟥🟥🟥\n")
+        
         raise
-    log_with_func_name("Returning from handle_all_sentence_chunks")
+    log_with_func_name(f"Returning from handle_all_sentence_chunks. Updates type: {type(updates)}, length: {len(updates)}")
+    print("\n🟦🟦🟦-------------------- handle_all_sentence_chunks ends--------------------🟦🟦🟦\n")
     return updates

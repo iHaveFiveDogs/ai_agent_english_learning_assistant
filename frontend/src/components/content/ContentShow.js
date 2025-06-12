@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from 'react';
 
 import { useNavigate, useParams, Link } from 'react-router-dom';
-import TopBar from '../TopBar';
-import EditArticleModal, { EditIcon } from './EditArticleModal';
-import List from './List';
-import Dashboard from './Dashboard';
-import ExplainableWrapper from '../wrapper/ExplainableWrapper';
 import './ContentShow.css';
 import { useLocation } from 'react-router-dom';
+import { deleteArticle, getSingleArticle } from '../../api/articleService';
+import TopBar from '../TopBar';
+import EditArticleModal from './EditArticleModal';
+import ExplainableWrapper from '../wrapper/ExplainableWrapper';
+import Dashboard from './Dashboard';
+import ChunkQuestionPagination from './ChunkQuestionPagination';
+import { getChunkQuestions } from '../../api/questionService';
 
-function Content({ list, loading, fetchList }) {
+function Content({ list, loading, fetchList, dictionaryResult, setDictionaryResult, highlightWord, setHighlightWord }) {
+  const [showContent, setShowContent] = useState(false);
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const tag = query.get('tag') || 'news';
   const { id } = useParams();
   const [currentArticle, setCurrentArticle] = useState(null);
-  const [highlightWord, setHighlightWord] = useState(null);
-  const [dictionaryResult, setDictionaryResult] = useState(null);
+
   const [fetchingSingle, setFetchingSingle] = useState(false);
   const [notFound, setNotFound] = useState(false);
   // --- ADDED: State and hooks for modal, navigation, and deleting ---
@@ -24,6 +26,30 @@ function Content({ list, loading, fetchList }) {
   const [shouldNavigateAfterEdit, setShouldNavigateAfterEdit] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const navigate = useNavigate();
+
+  // State for chunk questions
+  const [chunkQuestions, setChunkQuestions] = useState([]);
+  const [chunkQuestionsLoading, setChunkQuestionsLoading] = useState(false);
+  const [chunkQuestionsError, setChunkQuestionsError] = useState(null);
+  const [chunkQuestionsFetched, setChunkQuestionsFetched] = useState(false);
+
+  // Button-triggered fetch for chunk questions
+  const handleFetchChunkQuestions = async () => {
+    if (!currentArticle || !currentArticle._id || !tag) return;
+    setChunkQuestionsLoading(true);
+    setChunkQuestionsError(null);
+    setChunkQuestions([]);
+    setChunkQuestionsFetched(false);
+    try {
+      const list = await getChunkQuestions(currentArticle._id, tag);
+      setChunkQuestions(list);
+      setChunkQuestionsFetched(true);
+    } catch (err) {
+      setChunkQuestionsError(err.message || 'Failed to fetch chunk questions');
+    } finally {
+      setChunkQuestionsLoading(false);
+    }
+  }
 
   useEffect(() => {
     
@@ -46,11 +72,7 @@ function Content({ list, loading, fetchList }) {
     if (list.length === 0 && id) {
       setFetchingSingle(true);
       
-      fetch(`/single_article?article_id=${encodeURIComponent(id)}&tag=${encodeURIComponent(tag || 'news')}`)
-        .then(res => {
-          if (!res.ok) throw new Error('not found');
-          return res.json();
-        })
+      getSingleArticle(id, tag)
         .then(data => {
           setCurrentArticle(data.article || null);
           setFetchingSingle(false);
@@ -70,7 +92,6 @@ function Content({ list, loading, fetchList }) {
           setCurrentArticle(null);
           setFetchingSingle(false);
           setNotFound(true);
-          window.__ARTICLE_CONTEXT__ = null;
         });
       return;
     }
@@ -79,23 +100,13 @@ function Content({ list, loading, fetchList }) {
     if (!loading && id) {
       setFetchingSingle(true);
       
-      fetch(`/single_article?article_id=${encodeURIComponent(id)}&tag=${encodeURIComponent(tag || 'news')}`)
-        .then(res => {
-          if (!res.ok) throw new Error('not found');
-          return res.json();
-        })
+      getSingleArticle(id, tag)
         .then(data => {
-          setCurrentArticle(data.article || null);
-          setFetchingSingle(false);
-          if (data.article) {
-            window.__ARTICLE_CONTEXT__ = {
-              articleId: data.article._id,
-              articleContent: data.article.content,
-              tag: data.article.tag || tag
-            };
-          } else {
+          if (!data || data.error) {
             setNotFound(true);
             window.__ARTICLE_CONTEXT__ = null;
+          } else {
+            setCurrentArticle(data);
           }
         })
         .catch((err) => {
@@ -110,7 +121,6 @@ function Content({ list, loading, fetchList }) {
 
   const wordExplanations = currentArticle && Array.isArray(currentArticle.word_explanations) ? currentArticle.word_explanations : [];
   const summary = currentArticle && currentArticle.summary ? currentArticle.summary : '';
-
 
   // Navigate after edit and modal close
   useEffect(() => {
@@ -132,28 +142,20 @@ function Content({ list, loading, fetchList }) {
       return part;
     });
   }
-
-  
+ 
 
   const handleDelete = async () => {
     if (!id || !tag) return;
     if (!window.confirm('Are you sure you want to delete this article?')) return;
     setDeleting(true);
     try {
-      const res = await fetch(`/delete_article?article_id=${encodeURIComponent(id)}&tag=${encodeURIComponent(tag)}`, {
-        method: 'DELETE',
-      });
-      const data = await res.json();
-      if (data.success) {
-        if (typeof fetchList === 'function') {
-          fetchList(tag);
-        }
-        setTimeout(() => {
-          navigate(`/articles?tag=${encodeURIComponent(tag)}`);
-        }, 300);
-      } else {
-        alert(data.message || 'Delete failed');
+      await deleteArticle(id, tag);
+      if (typeof fetchList === 'function') {
+        fetchList(tag);
       }
+      setTimeout(() => {
+        navigate(`/articles?tag=${encodeURIComponent(tag)}`);
+      }, 300);
     } catch (e) {
       alert('Delete failed: ' + (e.message || e));
     }
@@ -161,114 +163,171 @@ function Content({ list, loading, fetchList }) {
   };
 
   return (
-    <div className="content-page" style={{marginTop:0,paddingTop:0}}>
-      <TopBar />
-      <div className="content-layout">
-        {/* Article Content */}
-        <div className="article-panel" style={{ position: 'relative' }}>
-           {currentArticle && (
-            <div style={{ position: 'absolute', top: 12, right: 12, display: 'flex', gap: 8, zIndex: 10 }}>
-              <button
-                className="delete-article-btn"
-                style={{
-                  background: 'none',
-                  color: '#222',
-                  border: 'none',
-                  borderRadius: '50%',
-                  width: 32,
-                  height: 32,
-                  fontWeight: 'bold',
-                  fontSize: 22,
-                  cursor: deleting ? 'wait' : 'pointer',
-                  opacity: deleting ? 0.5 : 1,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  transition: 'background 0.15s',
-                }}
-                disabled={deleting}
-                title="Delete article"
-                onClick={handleDelete}
-              >
-                {deleting ? <span style={{fontSize:14}}>...</span> : '×'}
-              </button>
-              {/* Edit icon */}
-              <button
-                className="edit-article-btn"
-                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', display: 'flex', alignItems: 'center' }}
-                title="Edit article"
-                onClick={() => setShowEdit(true)}
-                disabled={deleting}
-              >
-                <EditIcon />
-              </button>
-            </div>
-          )}
-          {/* Edit Modal */}
-          {showEdit && (
-            <EditArticleModal
-              open={showEdit}
-              onClose={() => setShowEdit(false)}
-              articleId={id}
-              tag={tag}
-              onSend={async () => {
-                // Refetch article after edit
-                try {
-                  const res = await fetch(`/single_article?article_id=${encodeURIComponent(id)}&tag=${encodeURIComponent(tag || 'news')}`);
-                  if (!res.ok) throw new Error('Failed to fetch article');
-                  const data = await res.json();
-                  setCurrentArticle(data.article || data);
-                  setShouldNavigateAfterEdit(true); // set flag to trigger navigation after modal closes
-                } catch (e) {
-                  // Optionally handle error
-                }
-              }}
-            />
-          )}
-          <Link to={`/articles?tag=${encodeURIComponent(tag || 'news')}`} className="back-link">&larr; Back to List</Link>
-          {fetchingSingle ? (
-            <div className="article-loading">
-              <p style={{ color: '#888', fontSize: '1.15rem', margin: '48px 0 18px 0' }}>Loading article...</p>
-            </div>
-          ) : notFound ? (
-            <div className="article-not-found">
-              <h2 style={{ color: '#d32f2f', margin: '48px 0 18px 0', fontWeight: 700, fontSize: '2rem' }}>Article Not Found</h2>
-              <p style={{ color: '#888', fontSize: '1.15rem', marginBottom: 24 }}>Sorry, the article you are looking for does not exist or was removed.</p>
-              <Link to={`/articles?tag=${encodeURIComponent(tag || 'news')}`} className="back-link" style={{ color: '#1976d2' }}>&larr; Back to List</Link>
-            </div>
-          ) : currentArticle ? (
-            <>
-              <h2 className="article-title">{currentArticle.title}</h2>
-              <div style={{ display: 'flex', gap: 24, alignItems: 'center', margin: '6px 0 18px 0' }}>
-                <span style={{ color: '#1976d2', fontWeight: 500, fontSize: '1.08rem' }}>Tag: {tag}</span>
-                {currentArticle.source && (
-                  <span style={{ color: '#1976d2', fontWeight: 500, fontSize: '1.08rem' }}>Source: {currentArticle.source}</span>
-                )}
-              </div>
-              <ExplainableWrapper>
-                <div className="article-body">
-                  {highlightWordsInContent(currentArticle.content, highlightWord)}
+    <>
+      <div className="content-page" style={{marginTop:0,paddingTop:0}}>
+        <TopBar />
+        <div className="content-layout">
+          {/* Article Content */}
+          <div className="article-panel">
+              {currentArticle && (
+                <div className="article-panel-actions">
+                  <button
+                    className={`delete-article-btn${deleting ? ' deleting' : ''}`}
+                    disabled={deleting}
+                    title="Delete article"
+                    onClick={handleDelete}
+                  >
+                    {deleting ? <span style={{fontSize:14}}>...</span> : '×'}
+                  </button>
+                  {/* Edit icon - always visible for detail view */}
+                  <button
+                    className="edit-article-btn"
+                    title="Edit article"
+                    onClick={() => setShowEdit(true)}
+                    style={{
+                      marginLeft: 8,
+                      background: '#fff',
+                      border: '1px solid #1976d2',
+                      color: '#1976d2',
+                      borderRadius: 5,
+                      padding: '0 10px',
+                      fontSize: '18px',
+                      fontWeight: 600,
+                      cursor: deleting ? 'not-allowed' : 'pointer',
+                      opacity: deleting ? 0.5 : 1,
+                      transition: 'background 0.2s',
+                      outline: 'none',
+                      height: 32
+                    }}
+                    disabled={deleting}
+                  >
+                    <span title="Edit">✎</span>
+                  </button>
                 </div>
-              </ExplainableWrapper>
-            </>
-          ) : null}
-        </div>
+              )}
+                {/* Edit Modal */}
+                {showEdit && (
+                  <EditArticleModal
+                    open={showEdit}
+                    onClose={() => setShowEdit(false)}
+                    articleId={id}
+                    tag={tag}
+                    onSend={async () => {
+                      // Refetch article after edit
+                      try {
+                        const data = await getSingleArticle(id, tag);
+                        setCurrentArticle(data.article || data);
+                        setShouldNavigateAfterEdit(true); // set flag to trigger navigation after modal closes
+                      } catch (e) {
+                        // Optionally handle error
+                      }
+                    }}
+                  />
+                )}
+                <Link to={`/articles?tag=${encodeURIComponent(tag || 'news')}`} className="back-link">&larr; Back to List</Link>
+                {fetchingSingle ? (
+                  <div className="article-loading">
+                    <p style={{ color: '#888', fontSize: '1.15rem', margin: '48px 0 18px 0' }}>Loading article...</p>
+                  </div>
+                ) : notFound ? (
+                  <div className="article-not-found">
+                    <h2 style={{ color: '#d32f2f', margin: '48px 0 18px 0', fontWeight: 700, fontSize: '2rem' }}>Article Not Found</h2>
+                    <p style={{ color: '#888', fontSize: '1.15rem', marginBottom: 24 }}>Sorry, the article you are looking for does not exist or was removed.</p>
+                    <Link to={`/articles?tag=${encodeURIComponent(tag || 'news')}`} className="back-link" style={{ color: '#1976d2' }}>&larr; Back to List</Link>
+                  </div>
+                ) : currentArticle ? (
+                  <>
+                    <h2 className="article-title">{currentArticle.title}</h2>
+                    <div style={{ display: 'flex', gap: 24, alignItems: 'center', margin: '6px 0 18px 0' }}>
+                      <span style={{ color: '#1976d2', fontWeight: 500, fontSize: '1.08rem' }}>Tag: {tag}</span>
+                      {currentArticle.source && (
+                        <span style={{ color: '#1976d2', fontWeight: 500, fontSize: '1.08rem' }}>Source: {currentArticle.source}</span>
+                      )}
+                    </div>
+                    <ExplainableWrapper>
+                      <div className="article-body">
+                        {!showContent ? (
+                          <div style={{ margin: '14px 0', color: '#444', fontStyle: 'italic' }}>
+                            <strong>Summary:</strong> {currentArticle.summary || 'No summary.'}
+                            <div>
+                              <span
+                                onClick={() => setShowContent(true)}
+                                style={{ color: '#1976d2', cursor: 'pointer', textDecoration: 'underline', marginLeft: 8 }}
+                                  title="Show full content"
+                                >
+                                  Show Content
+                                </span>
+                                <span style={{ color: '#b71c1c', marginLeft: 14, fontSize: '0.98em', opacity: 0.7 }}>
+                                  (will be deleted if exceed 7 days)
+                                </span>
+                              </div>
+                            </div>
+                          ) : (
+                            <div style={{ margin: '14px 0' }}>
+                              <strong>Content:</strong>
+                              <div
+                                style={{ color: '#222', background: '#f8f8fa', borderRadius: 6, padding: '14px 12px', marginTop: 6 }}
+                              >
+                                {highlightWordsInContent(currentArticle.content, highlightWord)}
+                              </div>
+                              <div>
+                                <span
+                                  onClick={() => setShowContent(false)}
+                                  style={{ color: '#1976d2', cursor: 'pointer', textDecoration: 'underline', marginLeft: 8 }}
+                                  title="Hide content"
+                                >
+                                  Hide Content
+                                </span>
+                              </div>
+                            </div>
+                          ) }
+                      </div>
+                    </ExplainableWrapper>
+                  </>
+                ) : null}
+          </div>
 
-        {/* Dashboard */}
+          {/* Dashboard */}
         <Dashboard
-          wordList={wordExplanations}
-          summary={summary}
-          onWordClick={w => setHighlightWord(w.word)}
-          highlightWord={highlightWord}
-          dictionaryResult={dictionaryResult}
-          setDictionaryResult={setDictionaryResult}
-          articleId={currentArticle ? currentArticle._id : null}
-          tag={tag}
-          expression_explanation={currentArticle && Array.isArray(currentArticle.expression_explanation) ? currentArticle.expression_explanation : []}
-          sentence_explanation={currentArticle && Array.isArray(currentArticle.sentence_explanation) ? currentArticle.sentence_explanation : []}
+            wordList={wordExplanations}
+            summary={summary}
+            onWordClick={w => setHighlightWord(w.word)}
+            highlightWord={highlightWord}
+            dictionaryResult={dictionaryResult}
+            setDictionaryResult={setDictionaryResult}
+            articleId={currentArticle ? currentArticle._id : null}
+            tag={tag}
+            expression_explanation={currentArticle && Array.isArray(currentArticle.expression_explanation) ? currentArticle.expression_explanation : []}
+            sentence_explanation={currentArticle && Array.isArray(currentArticle.sentence_explanation) ? currentArticle.sentence_explanation : []}
         />
+        </div>
       </div>
-    </div>
+      {/* Chunk-Question Pagination - moved below article and dashboard area */}
+      <div style={{ marginTop: 24 }}>
+        {!chunkQuestionsFetched ? (
+          <button
+            onClick={handleFetchChunkQuestions}
+            disabled={chunkQuestionsLoading || !currentArticle}
+            style={{
+              padding: '10px 22px',
+              borderRadius: 8,
+              border: 'none',
+              background: '#1976d2',
+              color: '#fff',
+              fontWeight: 600,
+              fontSize: '1.08rem',
+              cursor: chunkQuestionsLoading || !currentArticle ? 'not-allowed' : 'pointer',
+              margin: '8px 0'
+            }}>
+            {chunkQuestionsLoading ? 'Loading...' : 'Load Questions'}
+          </button>
+        ) : chunkQuestionsError ? (
+          <div style={{ color: '#d32f2f', margin: '16px 0' }}>Error: {chunkQuestionsError}</div>
+        ) : (
+          <ChunkQuestionPagination chunkQuestionsList={chunkQuestions} />
+        )}
+      </div>
+    </>
   );
 }
 

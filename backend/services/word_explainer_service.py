@@ -6,6 +6,7 @@ from pymongo import UpdateOne
 from nltk.tokenize import sent_tokenize
 from db.sqlite import save_words, fetch_word
 from services.utiles.print_function_name import log_with_func_name
+import pyttsx3
 
 #### handle word_list retrival from alfo agent #####
 def extract_word_sentences(chunk, word_list):
@@ -122,7 +123,27 @@ def load_word_list(path="realistic_advanced_words.txt"):
 def filter_uncached_words(word_list):
     return [word for word in word_list if fetch_word_from_cached_db(word) is None]
 
-
+def generate_word_audio(word: str) -> str:
+    """
+    Ensure the audio file for the given word exists in static/audio/.
+    If not, generate it using pyttsx3. Returns the file path.
+    """
+    folder = "static/audio"
+    os.makedirs(folder, exist_ok=True)
+    path = os.path.join(folder, f"{word.lower()}.mp3")
+    if not os.path.exists(path):
+        try:
+            engine = pyttsx3.init()
+            voices = engine.getProperty('voices')
+            for voice in voices:
+                if "david" in voice.name.lower():
+                    engine.setProperty('voice', voice.id)
+                    break
+            engine.save_to_file(word, path)
+            engine.runAndWait()
+        except Exception as e:
+            print("pyttsx3 error:", e)
+    return path
 
 
     if row:

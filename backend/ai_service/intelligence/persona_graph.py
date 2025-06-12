@@ -5,11 +5,11 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 
 from services.persona_service import *
 from services.utiles.json_clean import *
+from services.utiles.print_function_name import log_with_func_name
 
-from ai_service.intelligence.word_explainer import *
-from ai_service.intelligence.summarizer import *
+
 from ai_service.intelligence.persona import *
-from ai_service.chain.alfo_chain import *
+
 from langchain_core.runnables import RunnableLambda
 from models.upload_article_agentGraph_state import personaBuilder, PersonaState
 
@@ -56,7 +56,7 @@ personaBuilder.set_finish_point("store")
 persona_subgraph = personaBuilder.compile()
 
 async def handle_all_persona_chunks(decision_results: list[dict], chunked_collection, article_id):
-    assert chunked_collection is not None, "❌ chunked_collection missing from state"
+    print("\n🟦🟦🟦--------------------  handle_all_persona_chunks start --------------------🟦🟦🟦\n")
     updates = []
 
     for chunk in decision_results:
@@ -83,4 +83,5 @@ async def handle_all_persona_chunks(decision_results: list[dict], chunked_collec
         await chunked_collection.bulk_write(updates)
         log_with_func_name("✅ Persona entries stored.")
     log_with_func_name("Returning from handle_all_persona_chunks")
+    print("\n🟦🟦🟦--------------------  handle_all_persona_chunks ends--------------------🟦🟦🟦\n")
     return updates

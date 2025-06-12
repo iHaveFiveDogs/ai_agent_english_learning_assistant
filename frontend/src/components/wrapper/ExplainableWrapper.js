@@ -1,8 +1,11 @@
 import React, { useState, useRef } from 'react';
 import WordMeaningPopup from './WordMeaningPopup';
+import { explainText } from '../../api/articleService';
+// import WordExplanation from '../WordExplanation';
 
 const ExplainableWrapper = ({ children }) => {
-  const [popup, setPopup] = useState({ visible: false, message: '' });
+  // popup: { visible: bool, word: object|null, message: string|null }
+  const [popup, setPopup] = useState({ visible: false, word: null, message: '' });
   const [confirmText, setConfirmText] = useState(null);
   const [showConfirm, setShowConfirm] = useState(false);
   const anchorRef = useRef(null);
@@ -25,7 +28,7 @@ const ExplainableWrapper = ({ children }) => {
 
 
   const closePopup = () => {
-    setPopup({ visible: false, message: '' });
+    setPopup({ visible: false, word: null, message: '' });
     setConfirmText(null);
     setShowConfirm(false);
     if (anchorRef.current) {
@@ -36,27 +39,26 @@ const ExplainableWrapper = ({ children }) => {
 
   // Confirm modal logic
   const handleConfirm = async () => {
+    // DEBUG: Log API response
+
     if (!confirmText) return;
     const textToExplain = confirmText; // capture value
     setShowConfirm(false); // Close confirm popup
     try {
-      const response = await fetch('/explain', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: textToExplain }),
-      });
-      if (response.ok) {
-        const data = await response.json();
-        let message = data.explanation || '';
-        setPopup({
-          visible: true,
-          message: message || 'No explanation available.'
-        });
+      const data = await explainText(textToExplain);
+     
+      // Only show plain text explanation
+      let message = '';
+      if (typeof data === 'string') {
+        message = data;
+      } else if (data && data.explanation) {
+        message = data.explanation;
       } else {
-        setPopup({ visible: true, message: 'Failed to fetch explanation.' });
+        message = 'No explanation available.';
       }
+      setPopup({ visible: true, word: null, message });
     } catch (error) {
-      setPopup({ visible: true, message: 'Error: ' + error });
+      setPopup({ visible: true, word: null, message: 'Error: ' + error });
     }
   };
   const handleCancel = () => setShowConfirm(false);
@@ -79,7 +81,7 @@ const ExplainableWrapper = ({ children }) => {
       {popup.visible && (
         <WordMeaningPopup open={popup.visible} onClose={closePopup}>
           <button onClick={closePopup} style={{position:'absolute',top:18,right:18,background:'none',border:'none',fontSize:22,color:'#888',cursor:'pointer'}}>&times;</button>
-          {popup.message}
+          <div style={{ padding: 18, fontSize: '1.08rem', color: '#333' }}>{popup.message}</div>
         </WordMeaningPopup>
       )}
     </div>

@@ -28,8 +28,12 @@ MODEL_POOL = {
     "alfo": ChatOllama(model="gemma3:4b", base_url="http://localhost:11434"),
     "persona": ChatOllama(model="samantha-mistral:latest", base_url="http://localhost:11434"),
     "context_explainer": ChatOllama(model="mistral:latest", base_url="http://localhost:11434"),
-    "sentence_explainer": ChatOllama(model="gemma3:4b", base_url="http://localhost:11434"),
-    "expressions_explainer": ChatOllama(model="gemma3:4b", base_url="http://localhost:11434"),
+    "sentence_explainer": ChatOllama(model="mistral:latest", base_url="http://localhost:11434"),
+    "sentence_explainer2": ChatOllama(model="gemma3:4b", base_url="http://localhost:11434"),
+    "expressions_explainer": ChatOllama(model="mistral:latest", base_url="http://localhost:11434"),
+    "context_explainer2": ChatOllama(model="gemma3:4b", base_url="http://localhost:11434"),
+    "generate_question": ChatOllama(model="mistral:latest", base_url="http://localhost:11434"),
+    "generate_question2": ChatOllama(model="gemma3:4b", base_url="http://localhost:11434"),
 }   
 
 

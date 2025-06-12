@@ -4,15 +4,8 @@ sys.stdout.reconfigure(encoding='utf-8')
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from services.word_explainer_service import *
-from services.summerizer_service import *
-from services.persona_service import *
 from services.utiles.json_clean import *
-
-
 from ai_service.intelligence.word_explainer import *
-from ai_service.intelligence.summarizer import *
-from ai_service.intelligence.persona import *
-from ai_service.chain.alfo_chain import *
 from langchain_core.runnables import RunnableLambda
 from models.upload_article_agentGraph_state import wordexplainerBuilder, WordExplainerState
 
@@ -60,7 +53,7 @@ wordexplainerBuilder.set_finish_point("generate")
 word_explanation_subgraph = wordexplainerBuilder.compile()
 
 async def handle_all_word_chunks(decision_results: list[dict], chunked_collection):
-    assert chunked_collection is not None, "❌ chunked_collection missing from state"
+    print("\n🟥🟥🟥--------------------  handle_all_word_chunks start --------------------🟥🟥🟥\n")
     
     updates = []
     for chunk in decision_results:
@@ -80,8 +73,17 @@ async def handle_all_word_chunks(decision_results: list[dict], chunked_collectio
                 "chunked_collection": chunked_collection,
                 "explain_words": explain_words
             }
-            result = await word_explanation_subgraph.ainvoke(state)
-            update = result.get("word_update")
+            try:
+                result = await word_explanation_subgraph.ainvoke(state)
+                if not isinstance(result, dict):
+                    log_with_func_name(f"[WORD_EXPLAINER] Warning: Expected dict from ainvoke, got {type(result)}: {result}")
+                    result = {}
+                update = result.get("word_update")
+            except Exception as e:
+                log_with_func_name(f"[WORD_EXPLAINER] Error in ainvoke for chunk {chunk.get('chunk_id')}: {e}")
+                import traceback
+                traceback.print_exc()
+                update = None
             if update:
                 updates.append(update)
         else:
@@ -93,5 +95,6 @@ async def handle_all_word_chunks(decision_results: list[dict], chunked_collectio
     except Exception as e:
         log_with_func_name(f"❌ Failed to write word explanations: {e}")
         raise
-    log_with_func_name("Returning from handle_all_word_chunks")
+    log_with_func_name(f"Returning from handle_all_word_chunks. Updates type: {type(updates)}, length: {len(updates)}")
+    print("\n🟥🟥🟥--------------------  handle_all_word_chunks end --------------------🟥🟥🟥\n")
     return updates

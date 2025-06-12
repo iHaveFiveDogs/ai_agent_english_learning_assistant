@@ -81,7 +81,7 @@ async def get_relevant_docs_by_role(role: str, query: str, tag: str) -> list[Doc
         return []
     retriever = await get_retriever(raw_docs)
     return await similarity_search_with_filter(raw_docs, query, role)
-    return await similarity_search_with_filter(raw_docs, query, role)
+    
 
 #langraph
 async def fetch_context_node(state: PersonaAgentState):

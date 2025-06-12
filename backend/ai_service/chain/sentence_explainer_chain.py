@@ -12,5 +12,6 @@ from ai_service.llm_loader.llm_ollama import load_llm
 
 try:
     sentence_explainer_chain = key_sentence_explainer_prompt | load_llm('sentence_explainer')
+    sentence_explainer_chain2 = key_sentence_explainer_prompt | load_llm('sentence_explainer2')
 except Exception as e:
     print(e)

@@ -22,14 +22,12 @@ from ai_service.intelligence.expressions_explainer_graph import handle_all_expre
 from ai_service.intelligence.sentences_explainer_graph import handle_all_sentence_chunks
 from langchain_core.runnables import RunnableLambda
 from models.upload_article_agentGraph_state import MergeState,mergeBuilder
-from pprint import pprint
 
 # --- Node: Main Dispatcher ---
 async def do_jobs(state: MergeState):
     try:
         raw_collection, chunk_collection, _ = get_collections_for_tag(state["tag"])
         chunk_states = await prepare_chunk_states(state["article_id"], state["tag"])
-        
         await asyncio.gather(
             handle_all_summary_chunks(chunk_states, chunk_collection),
             handle_all_word_chunks(chunk_states, chunk_collection),
@@ -44,6 +42,8 @@ async def do_jobs(state: MergeState):
         }
     except Exception as e:
         log_with_func_name(f"❌ Failed to dispatch jobs: {repr(e)}")
+        import traceback
+        traceback.print_exc()
         # Return an error state so downstream nodes do not proceed with None collections
         return {**state, "error": f"do_jobs failed: {repr(e)}"}
 # --- Node: Merge Personas ---
@@ -115,7 +115,6 @@ async def run_merge_pipeline(article_id: str, tag: str):
 
     try:
         final_state = await merge_graph.ainvoke(initial_state)
-        print(f"[merge_pipeline] ✅ After do_jobs: {type(final_state['chunked_collection'])}")
         log_with_func_name("✅ Merge pipeline completed successfully.")
         return final_state
     except Exception as e:

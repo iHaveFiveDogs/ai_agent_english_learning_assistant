@@ -18,7 +18,7 @@ import asyncio
 import time
 
 
-from ai_service.chain.sentence_explainer_chain import sentence_explainer_chain
+from ai_service.chain.sentence_explainer_chain import sentence_explainer_chain, sentence_explainer_chain2
 
 
 async def sentence_explainer(chunk_id, sentence_list):
@@ -26,33 +26,39 @@ async def sentence_explainer(chunk_id, sentence_list):
     failed_expressions = []
 
     for sentence in sentence_list:
-               
+        context_result = None
+        # Try chain1 first
         try:
             start = time.time()
-            
-            print("\n🟦🟦🟦-------------------- LOG START: Calling sentence_explainer_chain.ainvoke --------------------🟦🟦🟦\n")
             print(f"Calling sentence_explainer_chain.ainvoke... at {start}")
-            print("\n🟦🟦🟦-------------------- LOG END: Calling sentence_explainer_chain.ainvoke ----------------------🟦🟦🟦\n")
-            print("\n🟦🟦🟦-------------------- LOG START: Awaiting sentence_explainer_chain.ainvoke --------------------🟦🟦🟦\n")
             response = await sentence_explainer_chain.ainvoke({"sentence": sentence})
-            print("\n🟦🟦🟦-------------------- LOG END: Awaiting sentence_explainer_chain.ainvoke ----------------------🟦🟦🟦\n")
-            print("\n🟦🟦🟦-------------------- LOG START: sentence_explainer_chain.ainvoke returned --------------------🟦🟦🟦\n")
             print(f"sentence_explainer_chain.ainvoke returned at {time.time()} (elapsed: {time.time() - start:.2f}s)")
-            print("\n🟦🟦🟦-------------------- LOG END: sentence_explainer_chain.ainvoke returned ----------------------🟦🟦🟦\n")
-            print("\n🟦🟦🟦-------------------- LOG START: sentence explainer done --------------------🟦🟦🟦\n")
-            log_with_func_name(f" sentence explainer is done explaining '{sentence}' ...")
-            print("\n🟦🟦🟦-------------------- LOG END: sentence explainer done ----------------------🟦🟦🟦\n")
+            log_with_func_name(f"sentence explainer is done explaining '{sentence}' ...")
             content = clean_content(response.content)
             json_block = extract_json_from_response(content)
             if not json_block:
                 raise ValueError("No JSON structure in contextual response")
-
             context_result = await decode_json_with_retry(json_block)
-        except Exception as e:
-            log_with_func_name(f"⚠️ Contextual explanation failed for '{sentence}'")
-            log_error(sentence, e)
+        except Exception as e1:
+            log_with_func_name(f"⚠️ Contextual explanation with chain1 failed for '{sentence}', trying chain2...")
+            log_error(sentence, e1)
             await asyncio.sleep(1)
-            context_result = {}
+            # Try chain2 as fallback
+            try:
+                start2 = time.time()
+                print(f"Calling sentence_explainer_chain2.ainvoke... at {start2}")
+                response2 = await sentence_explainer_chain2.ainvoke({"sentence": sentence})
+                print(f"sentence_explainer_chain2.ainvoke returned at {time.time()} (elapsed: {time.time() - start2:.2f}s)")
+                log_with_func_name(f"sentence explainer (chain2) is done explaining '{sentence}' ...")
+                content2 = clean_content(response2.content)
+                json_block2 = extract_json_from_response(content2)
+                if not json_block2:
+                    raise ValueError("No JSON structure in contextual response from chain2")
+                context_result = await decode_json_with_retry(json_block2)
+            except Exception as e2:
+                log_with_func_name(f"❌ Both chains failed for '{sentence}'")
+                log_error(sentence, e2)
+                context_result = None
 
         if context_result:
             explained_sentences.append({
@@ -64,7 +70,7 @@ async def sentence_explainer(chunk_id, sentence_list):
             make_sentence_explanation_update(chunk_id, explained_sentences)
         else:
             print("\n🟥🟥🟥-------------------- LOG START: Giving up on context --------------------🟥🟥🟥\n")
-            log_with_func_name(f"❌ Giving up on context for '{sentence}'")
+            log_with_func_name(f"❌ Giving up on context for '{sentence}' after both chains failed")
             print("\n🟥🟥🟥-------------------- LOG END: Giving up on context ----------------------🟥🟥🟥\n")
             failed_expressions.append({"sentence": sentence})
     if failed_expressions:

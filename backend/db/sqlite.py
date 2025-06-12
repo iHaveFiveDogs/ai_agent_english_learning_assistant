@@ -3,17 +3,10 @@ from contextlib import contextmanager
 
 DB_PATH = "word_info.db"
 EXPRESS_PATH = "expressions_info.db"
+
 @contextmanager
 def get_connection():
     conn = sqlite3.connect(DB_PATH)
-    try:
-        yield conn
-    finally:
-        conn.close()
-
-@contextmanager
-def get_expression_connection():
-    conn = sqlite3.connect(EXPRESS_PATH)
     try:
         yield conn
     finally:
@@ -42,7 +35,6 @@ def fetch_word(word):
         return {"ipa": row[0], "etymology": row[1]}
     return None
 
-
 def save_words(word, ipa, etymology):
     word_list = [(word, ipa, etymology)]
     with get_connection() as conn:
@@ -59,8 +51,15 @@ def count_cached_words():
         cursor.execute("SELECT COUNT(*) FROM word_info")
         return cursor.fetchone()[0]
 
-
 #expressions_info.db
+@contextmanager
+def get_expression_connection():
+    conn = sqlite3.connect(EXPRESS_PATH)
+    try:
+        yield conn
+    finally:
+        conn.close()
+
 def create_expressions_info_table():
     conn = sqlite3.connect("expressions_info.db")
     cursor = conn.cursor()
@@ -120,4 +119,4 @@ def count_cached_expressions():
 
 if "__main__" == __name__:
     result = count_cached_expressions()
-    print(f"Cached expressions: {result}")
+    print(f"Cached: {result}")

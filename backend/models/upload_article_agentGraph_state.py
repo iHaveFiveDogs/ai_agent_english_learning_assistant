@@ -1,6 +1,6 @@
 from langgraph.graph import StateGraph
 from typing_extensions import TypedDict, Annotated
-from typing import List, Optional
+from typing import List
 from bson import ObjectId
 
 # === 1. Common Chunk-Level State ===

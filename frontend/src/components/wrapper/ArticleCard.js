@@ -1,21 +1,45 @@
 import React from 'react';
+import './ArticleCard.css';
 
-function ArticleCard({ article, onClick, onDelete }) {
+// ArticleCard: Card dimensions controlled via CSS (see ArticleCard.css)
+// Height: 456px, Width: 330px (as of last update)
+function ArticleCard({ article, onClick, onDelete, processingStatus = 'idle' }) {
+  // Main card div. Height and width set in ArticleCard.css
   return (
     <div
+      id={`article-card-${article._id}`}
       className="article-card"
-      style={{ position: 'relative', cursor: 'pointer', transition: 'box-shadow 0.2s', boxShadow: '0 2px 12px rgba(0,0,0,0.10)', height: '480px', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
+      style={{ position: 'relative' }}
       onClick={e => {
         // Prevent click if delete or edit button was pressed
         if (e.target.classList.contains('article-delete-btn') || e.target.classList.contains('article-edit-btn')) return;
         onClick && onClick(article._id);
       }}
     >
+      {/* Processing/Prepared status overlay */}
+      {processingStatus === 'processing' && (
+        <div className="article-processing-overlay">
+          <span className="article-processing-spinner" /> Processing...
+        </div>
+      )}
+      {processingStatus === 'prepared' && (
+        <div className="article-prepared-badge">Ready!</div>
+      )}
+      {/* Overlay when processing */}
+      {processingStatus === 'processing' && (
+        <div className="article-processing-overlay">
+          <div className="article-processing-spinner"></div>
+          <span style={{ marginLeft: 10 }}>Processing...</span>
+        </div>
+      )}
+      {/* Prepared badge */}
+      {processingStatus === 'prepared' && (
+        <div className="article-prepared-badge">Prepared</div>
+      )}
       {/* Top right control: Delete button (X) only */}
-      <div style={{ position: 'absolute', top: 12, right: 12, zIndex: 10 }}>
+      <div className="article-card-delete-btn-wrap">
         <button
           className="article-delete-btn"
-          style={{ background: 'none', border: 'none', fontSize: 20, color: '#888', cursor: 'pointer', padding: 0 }}
           onClick={e => {
             e.stopPropagation();
             if (onDelete) onDelete(article._id);
@@ -26,29 +50,19 @@ function ArticleCard({ article, onClick, onDelete }) {
         </button>
       </div>
 
-      <div className="article-card-title" style={{ fontWeight: 700, fontSize: '1.18rem', marginBottom: 8 }}>
+      <div className="article-card-title">
         {article.title}
       </div>
       {article.tag && (
-        <span className="article-tag-chip" style={{
-          display: 'inline-block',
-          background: '#e3f2fd',
-          color: '#1976d2',
-          borderRadius: '12px',
-          padding: '2px 12px',
-          fontSize: '0.92rem',
-          fontWeight: 600,
-          marginBottom: 8
-        }}>{article.tag}</span>
+        <span className="article-tag-chip">{article.tag}</span>
       )}
-      <div className="article-card-summary" style={{ color: '#444', fontSize: '1.01rem', marginBottom: 10, maxHeight: '220px', overflowY: 'auto' }}>
+      <div className="article-card-summary">
         {article.summary || (article.content?.slice(0, 120) + (article.content?.length > 120 ? '...' : ''))}
       </div>
-      <div className="article-card-meta" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.96rem', color: '#888' }}>
+      <div className="article-card-meta">
         <span className="article-card-time">{article.upload_date ? new Date(article.upload_date).toLocaleString() : ''}</span>
         <span className="article-card-source">{article.source || ''}</span>
       </div>
-
     </div>
   );
 }

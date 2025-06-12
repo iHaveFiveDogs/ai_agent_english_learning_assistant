@@ -10,17 +10,7 @@ from ai_service.memory.persona_vector import *
 from bson import ObjectId
 
 graph_builder = StateGraph(PersonaAgentState)
-#answer like an expert
-# graph_builder.add_node("detect_role", detect_role_node)
-# graph_builder.add_node("fetch_context", fetch_context_node)
-# graph_builder.add_node("generate_answer", generate_answer_node)
 
-# graph_builder.set_entry_point("detect_role")
-# graph_builder.add_edge("detect_role", "fetch_context")
-# graph_builder.add_edge("fetch_context", "generate_answer")
-# graph_builder.set_finish_point("generate_answer")
-#answer like an expert
-#chat to user
 graph_builder.add_node("detect_role", random_role_node)
 graph_builder.add_node("fetch_context", fetch_context_node)
 #graph_builder.add_node("chat_with_user", chat_with_user_stream_node) #astream
@@ -32,8 +22,6 @@ graph_builder.set_finish_point("chat_with_user")
 #chat to user
 chat_graph = graph_builder.compile()
 
-import asyncio
-
 # --- Function to receive a query in JSON and return answer in JSON ---
 async def agent_langraph_chat(input_json: dict, tag: str) -> dict:
     """
@@ -41,24 +29,10 @@ async def agent_langraph_chat(input_json: dict, tag: str) -> dict:
     Example input: {"query": "What would a businessman think about TikTok bans?"}
     Returns: {"answer": <str>}
     """
-    print("[agent_langraph_chat] tag:", tag)
     initial_state = {
         "query": input_json["query"],
         "article_id": ObjectId(input_json["article_id"]),
         "tag": tag
     }
-    print("[agent_langraph_chat] initial_state tag:", initial_state["tag"])
     final_state = await chat_graph.ainvoke(initial_state)
     return {"answer": final_state.get("answer", "")}
-
-if __name__ == "__main__":
-    async def main():
-        initial_state = {
-            "query": "What would a businessman think about TikTok bans?"
-        }
-
-        final_state = await chat_graph.ainvoke(initial_state)
-        print("&&"*50)
-        print("Persona Answer:", final_state["answer"])
-        print("&&"*50)
-    asyncio.run(main())

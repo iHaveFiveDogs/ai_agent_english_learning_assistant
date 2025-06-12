@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import './EditArticleModal.css';
 import WordMeaningPopup from '../wrapper/WordMeaningPopup';
+import { editArticle, getSingleArticle } from '../../api/articleService';
 
 // Simple Edit icon SVG
 export const EditIcon = ({ style = {}, ...props }) => (
@@ -19,23 +21,21 @@ export default function EditArticleModal({ open, onClose, articleId, tag, onSend
     if (open && articleId && tag) {
       setLoading(true);
       setError('');
-      fetch(`/single_article?article_id=${encodeURIComponent(articleId)}&tag=${encodeURIComponent(tag)}`)
-        .then(res => {
-          if (!res.ok) throw new Error('Failed to fetch article');
-          return res.json();
-        })
+      getSingleArticle(articleId, tag)
         .then(data => {
-          const a = data.article || data;
           setForm({
-            title: a.title || '',
-            tag: a.tag || tag || '',
-            summary: a.summary || '',
-            content: a.content || '',
-            source: a.source || '',
+            title: data.title || '',
+            tag: data.tag || '',
+            summary: data.summary || '',
+            content: data.content || '',
+            source: data.source || '',
           });
+          setLoading(false);
         })
-        .catch(err => setError(err.message || 'Error fetching article'))
-        .finally(() => setLoading(false));
+        .catch((err) => {
+          setError(err.message || 'Error loading article');
+          setLoading(false);
+        });
     }
   }, [open, articleId, tag]);
 
@@ -52,21 +52,7 @@ export default function EditArticleModal({ open, onClose, articleId, tag, onSend
     setSending(true);
     setError('');
     try {
-      const res = await fetch(`/edit_article?article_id=${encodeURIComponent(articleId)}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          title: form.title,
-          tag: form.tag,
-          summary: form.summary,
-          content: form.content,
-          source: form.source,
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok || data.error) {
-        throw new Error(data.error || 'Failed to update article');
-      }
+      await editArticle(articleId, form);
       if (onSend) await onSend(form);
       sessionStorage.setItem('articleListNeedsRefresh', '1');
       onClose();
@@ -76,34 +62,23 @@ export default function EditArticleModal({ open, onClose, articleId, tag, onSend
     setSending(false);
   };
 
-
   return (
     <WordMeaningPopup open={open} onClose={onClose}>
-      <div style={{ minWidth: 340, position: 'relative' }}>
+      <div className="edit-article-modal-content">
         <button
           onClick={onClose}
           aria-label="Close"
-          style={{
-            position: 'absolute',
-            top: 10,
-            right: 10,
-            background: 'none',
-            border: 'none',
-            fontSize: 22,
-            color: '#888',
-            cursor: 'pointer',
-            zIndex: 9999
-          }}
+          className="edit-article-modal-close"
         >
           &times;
         </button>
         <h2 style={{ marginTop: 0, marginBottom: 14, color: '#1976d2', fontWeight: 700 }}>Edit Article</h2>
         {loading ? (
-          <div style={{ color: '#888' }}>Loading...</div>
+          <div className="edit-article-loading">Loading...</div>
         ) : (
           <form
             onSubmit={e => { e.preventDefault(); handleSend(); }}
-            style={{ display: 'flex', flexDirection: 'column', gap: 12 }}
+            className="edit-article-form"
           >
             <label>
               Title:
@@ -111,7 +86,7 @@ export default function EditArticleModal({ open, onClose, articleId, tag, onSend
                 name="title"
                 value={form.title}
                 onChange={handleFormChange}
-                style={{ width: '100%', padding: 6, borderRadius: 6, border: '1px solid #ccc', marginBottom: 6 }}
+                className="edit-article-input"
                 required
               />
             </label>
@@ -121,10 +96,12 @@ export default function EditArticleModal({ open, onClose, articleId, tag, onSend
                 name="tag"
                 value={form.tag}
                 onChange={handleFormChange}
-                style={{ width: '100%', padding: 6, borderRadius: 6, border: '1px solid #ccc', marginBottom: 6 }}
+                className="edit-article-input"
               >
                 <option value="news">News</option>
                 <option value="novels">Novels</option>
+                <option value="dramas">Dramas</option>
+                <option value="nonfiction">Nonfiction</option>
               </select>
             </label>
             <label>
@@ -132,7 +109,7 @@ export default function EditArticleModal({ open, onClose, articleId, tag, onSend
               <textarea
                 name="summary"
                 value={form.summary}
-                style={{ width: '100%', padding: 6, borderRadius: 6, border: '1px solid #ccc', minHeight: 80, marginBottom: 6 }}
+                className="edit-article-input"
                 readOnly
               />
             </label>
@@ -142,7 +119,7 @@ export default function EditArticleModal({ open, onClose, articleId, tag, onSend
                 name="content"
                 value={form.content}
                 onChange={handleFormChange}
-                style={{ width: '100%', padding: 6, borderRadius: 6, border: '1px solid #ccc', minHeight: 80, marginBottom: 6 }}
+                className="edit-article-input"
               />
             </label>
             <label>
@@ -151,11 +128,11 @@ export default function EditArticleModal({ open, onClose, articleId, tag, onSend
                 name="source"
                 value={form.source}
                 onChange={handleFormChange}
-                style={{ width: '100%', padding: 6, borderRadius: 6, border: '1px solid #ccc', marginBottom: 6 }}
+                className="edit-article-input"
               />
             </label>
             {error && <div style={{ color: 'red', marginBottom: 6 }}>{error}</div>}
-            <div style={{ display: 'flex', gap: 12, marginTop: 12 }}>
+            <div className="edit-article-buttons">
               <button type="button" onClick={handleClear} disabled={sending} style={{ flex: 1, background: '#eee', color: '#1976d2', border: 'none', borderRadius: 8, fontWeight: 600, fontSize: '1rem', cursor: 'pointer', padding: '10px 0' }}>Clear</button>
               <button type="submit" disabled={sending} style={{ flex: 1, background: '#1976d2', color: '#fff', border: 'none', borderRadius: 8, fontWeight: 600, fontSize: '1rem', cursor: 'pointer', padding: '10px 0' }}>{sending ? 'Sending...' : 'Send'}</button>
             </div>

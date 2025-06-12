@@ -2,23 +2,16 @@ import sys
 import os
 sys.stdout.reconfigure(encoding='utf-8')
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from services.utiles.json_clean import *
-
 
 #### to make project file available####
-
-
 from services.word_explainer_service import *
+from ai_service.chain.word_explainer_chain import *
 from services.utiles.lemmtize_word import lemmatize_word
+from services.utiles.json_clean import *
 from services.utiles.print_function_name import log_with_func_name
-
-
-
-import json
 import asyncio
 import time
 
-from ai_service.chain.word_explainer_chain import *
 
 async def fetch_or_cache_word_info(word):
     base_word = lemmatize_word(word)
@@ -100,12 +93,16 @@ async def word_explainer_handle_word_sentences(chunk_id, chunk, word_list):
             log_error(sentence, e)
             await asyncio.sleep(1)
             context_result = {}
+        ##generate audio
+        audio_path = generate_word_audio(base_word)
+        audio_url = f"/static/audio/{base_word.lower()}.mp3"  # If you have a FastAPI route for this
 
         if context_result:
             explained_words.append({
                 "word": original_word,
                 "base_word": base_word,
                 "ipa": ipa,
+                "audio_url": audio_url,
                 "etymology": etymology,
                 "explanation": context_result.get("explanation", ""),
                 "contextual_meaning": context_result.get("contextual_meaning", ""),
@@ -121,6 +118,7 @@ async def word_explainer_handle_word_sentences(chunk_id, chunk, word_list):
 
     return explained_words
 
+## following functions are for pre-establish word_info.db
 async def build_ipa_etymology_cache(uncached_words):
     for word in uncached_words:
         log_with_func_name(f"🔎 Checking: {word}")

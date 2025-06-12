@@ -1,0 +1,141 @@
+.chunk-question-outer-wrapper {
+  margin: 0 30px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #f9fafc;
+  padding: 18px;
+  box-shadow: 0 2px 8px #e3eaf7;
+}
+
+.chunk-question-header {
+  font-weight: 600;
+  font-size: 1.13rem;
+  color: #1976d2;
+  margin-bottom: 8px;
+}
+
+.chunk-question-top-margin {
+  margin-bottom: 0px;
+}
+
+.chunk-question-flex-row {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.chunk-question-chunk-col {
+  flex: 2 1 0;
+}
+
+.chunk-question-right-col {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.chunk-question-pagination-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.chunk-question-pagination-row button {
+  padding: 6px 16px;
+  border-radius: 6px;
+  border: none;
+  background: #e3eaf7;
+  color: #1976d2;
+  font-weight: 600;
+  cursor: pointer;
+}
+.chunk-question-pagination-row button:disabled {
+  cursor: not-allowed;
+  background: #bfc8d8;
+  color: #fff;
+}
+
+.chunk-question-pagination-info {
+  color: #888;
+  font-size: 0.98rem;
+}
+
+.chunk-question-feedback {
+  margin-top: 10px;
+  background: #f8f8fa;
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+.feedback-correct {
+  color: green;
+}
+.feedback-incorrect {
+  color: red;
+}
+.feedback-other {
+  color: #1976d2;
+}
+
+
+.chunk-question-wrapper {
+  width: 100%;
+}
+
+.chunk-question-card {
+  min-height: 80px;
+  margin-bottom: 18px;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #e3eaf7;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #e3eaf7;
+  padding: 18px;
+  box-sizing: border-box;
+  font-size: 1.2rem;
+}
+
+.chunk-question-question-card {
+  margin-bottom: 18px;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #e3eaf7;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #e3eaf7;
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+
+.chunk-question-input-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.chunk-question-input {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #bfc8d8;
+  font-size: 1em;
+  min-height: 300px;
+  resize: vertical;
+}
+
+.chunk-question-send-btn {
+  padding: 8px 18px;
+  border-radius: 6px;
+  border: none;
+  background: #1976d2;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+.chunk-question-send-btn:disabled {
+  cursor: not-allowed;
+  background: #bfc8d8;
+  color: #fff;
+}

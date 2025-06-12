@@ -113,7 +113,15 @@ def save_expressions_to_cached_db(expression, meaning, etymology):
     insert_expression(expression, meaning, etymology)
 
 def fetch_expression_from_cached_db(expression):
-    return fetch_single_expression(expression)
+    result = fetch_single_expression(expression)
+    if result is None:
+        return None
+    # result is a tuple: (expression, meaning, etymology)
+    return {
+        "expression": result[0],
+        "meaning": result[1],
+        "etymology": result[2]
+    }
 
 
 def filter_uncached_expressions(expression_list):

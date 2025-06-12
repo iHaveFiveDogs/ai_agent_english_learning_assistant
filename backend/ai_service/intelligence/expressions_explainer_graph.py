@@ -3,20 +3,13 @@ import os
 sys.stdout.reconfigure(encoding='utf-8')
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from services.expressions_explainer_service import *
-from services.summerizer_service import *
-from services.persona_service import *
-from services.utiles.json_clean import *
+from services.expressions_explainer_service import if_there_are_expression_explain, make_expression_explanation_update
+from ai_service.intelligence.expressions_explainer import expression_explainer_handle_expression_sentences
 
-
-from ai_service.intelligence.word_explainer import *
-from ai_service.intelligence.expressions_explainer import *
-from ai_service.intelligence.summarizer import *
-from ai_service.intelligence.persona import *
-from ai_service.chain.alfo_chain import *
 from langchain_core.runnables import RunnableLambda
 from models.upload_article_agentGraph_state import ExpressionsState, expressionsBuilder
-
+from services.utiles.json_clean import *
+from services.utiles.print_function_name import log_with_func_name
 
 # Entry node: should we explain expressions for this chunk?
 async def should_explain_expressions(state: ExpressionsState):
@@ -26,7 +19,6 @@ async def should_explain_expressions(state: ExpressionsState):
         state["chunked_collection"]
     )
     return {**state, "skip": exists}
-
 # Actual expression explanation node
 async def generate_expression_explanations(state: ExpressionsState):
     
@@ -42,11 +34,9 @@ async def generate_expression_explanations(state: ExpressionsState):
     
     update = make_expression_explanation_update(state["chunk_id"], explained)
     return {**state, "expression_update": update}
-
 # Router function
 def expression_router(state: ExpressionsState):
     return "skip" if state.get("skip") else "generate"
-
 # Build the graph
 expressionsBuilder.add_node("check", RunnableLambda(should_explain_expressions))
 expressionsBuilder.add_node("generate", RunnableLambda(generate_expression_explanations))
@@ -61,12 +51,10 @@ expressionsBuilder.add_conditional_edges(
     }
 )
 expressionsBuilder.set_finish_point("generate")
-
 expressions_explainer_subgraph = expressionsBuilder.compile()
 
-
 async def handle_all_expression_chunks(decision_results: list[dict], chunked_collection):
-    assert chunked_collection is not None, "❌ chunked_collection missing from state"
+    print("\n🟧🟧🟧-------------------- handle_all_expression_chunks start--------------------🟧🟧🟧\n")
     updates = []
     for chunk in decision_results:
         extract_expressions = None
@@ -85,8 +73,17 @@ async def handle_all_expression_chunks(decision_results: list[dict], chunked_col
                 "chunked_collection": chunked_collection,
                 "extract_expressions": extract_expressions
             }
-            result = await expressions_explainer_subgraph.ainvoke(state)
-            update = result.get("expression_update")
+            try:
+                result = await expressions_explainer_subgraph.ainvoke(state)
+                if not isinstance(result, dict):
+                    log_with_func_name(f"[EXPRESSION_EXPLAINER] Warning: Expected dict from ainvoke, got {type(result)}: {result}")
+                    result = {}
+                update = result.get("expression_update")
+            except Exception as e:
+                log_with_func_name(f"[EXPRESSION_EXPLAINER] Error in ainvoke for chunk {chunk.get('chunk_id')}: {e}")
+                import traceback
+                traceback.print_exc()
+                update = None
             if update:
                 updates.append(update)
         else:
@@ -98,5 +95,6 @@ async def handle_all_expression_chunks(decision_results: list[dict], chunked_col
     except Exception as e:
         log_with_func_name(f"❌ Failed to write expression explanations: {e}")
         raise
-    log_with_func_name("Returning from handle_all_expression_chunks")
+    log_with_func_name(f"Returning from handle_all_expression_chunks. Updates type: {type(updates)}, length: {len(updates)}")
+    print("\n🟧🟧🟧-------------------- handle_all_expression_chunks end--------------------🟧🟧🟧\n")
     return updates

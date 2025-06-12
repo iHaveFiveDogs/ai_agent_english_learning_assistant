@@ -53,7 +53,7 @@ summarize_subgraph = summarizerBuilder.compile()
 
 
 async def handle_all_summary_chunks(decision_results: list[dict], chunked_collection):
-    assert chunked_collection is not None, "❌ chunked_collection missing from state"
+    print("\n✅✅✅--------------------  handle_all_summary_chunks start --------------------✅✅✅\n")
     updates = []
 
     for chunk in decision_results:
@@ -70,8 +70,17 @@ async def handle_all_summary_chunks(decision_results: list[dict], chunked_collec
                 "chunked_collection": chunked_collection,
                 "should_summarize": should_summarize,
             }
-            result = await summarize_subgraph.ainvoke(state)
-            update = result.get("summary_update")
+            try:
+                result = await summarize_subgraph.ainvoke(state)
+                if not isinstance(result, dict):
+                    log_with_func_name(f"[SUMMARIZER] Warning: Expected dict from ainvoke, got {type(result)}: {result}")
+                    result = {}
+                update = result.get("summary_update")
+            except Exception as e:
+                log_with_func_name(f"[SUMMARIZER] Error in ainvoke for chunk {chunk.get('chunk_id')}: {e}")
+                import traceback
+                traceback.print_exc()
+                update = None
             if update:
                 updates.append(update)
         else:
@@ -83,5 +92,6 @@ async def handle_all_summary_chunks(decision_results: list[dict], chunked_collec
         log_with_func_name("✅ Summaries written to MongoDB.")
     else:
         log_with_func_name("No summary updates to write.")
-    log_with_func_name("Returning from handle_all_summary_chunks")
+    log_with_func_name(f"Returning from handle_all_summary_chunks. Updates type: {type(updates)}, length: {len(updates)}")
+    print("\n✅✅✅-------------------- handle_all_summary_chunks ends--------------------✅✅✅\n")
     return updates

@@ -15,3 +15,7 @@ articles_chunks = db["articles_chunks"]
 
 novels_raw = db["novels_raw"]
 novels_chunks= db["novels_chunks"]
+
+questions_answer_articles = db["questions_answer_articles"]
+questions_answer_novels = db["questions_answer_novels"]
+questions_answer_dramas = db["questions_answer_dramas"]

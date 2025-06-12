@@ -11,5 +11,6 @@ from ai_service.llm_loader.llm_ollama import load_llm
 
 try:
     context_explainer_chain = chosen_text_explainer_prompt | load_llm('context_explainer')
+    context_explainer_chain2 = chosen_text_explainer_prompt | load_llm('context_explainer2')
 except Exception as e:
     print(e)

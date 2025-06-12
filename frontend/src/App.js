@@ -4,26 +4,27 @@ import './App.css';
 import List from "./components/content/List";
 import TopBar from './components/TopBar';
 import ContentShow from './components/content/ContentShow';
-import FloatingChatButton from './components/FloatingChatButton';
+
 
 import Upload from './components/upload';
+import { getAllArticles } from './api/articleService';
 
 
 function App() {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [dictionaryResult, setDictionaryResult] = useState(null);
+  const [highlightWord, setHighlightWord] = useState(null);
 
   const fetchList = useCallback((tag = 'news') => {
     setLoading(true);
-    fetch(`/all_articles?tag=${encodeURIComponent(tag)}`)
-      .then((res) => {
-        if (!res.ok) throw new Error('Failed to fetch articles');
-        return res.json();
-      })
+    getAllArticles(tag)
       .then((data) => {
         setList(data.articles || []);
         setLoading(false);
+        setDictionaryResult(null); // Clear on successful fetch
+        setHighlightWord(null);    // Clear on successful fetch
       })
       .catch((err) => {
         setError(err.message);
@@ -53,10 +54,19 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/articles" element={<List list={list} loading={loading} error={error} fetchList={fetchList} />} />
           <Route path="/upload" element={<Upload />} />
-          <Route path="/content/:id" element={<ContentShow list={list} loading={loading} tag={new URLSearchParams(window.location.search).get('tag') || 'news'} fetchList={fetchList} />} />
+          <Route path="/content/:id" element={<ContentShow
+              list={list}
+              loading={loading}
+              tag={new URLSearchParams(window.location.search).get('tag') || 'news'}
+              fetchList={fetchList}
+              dictionaryResult={dictionaryResult}
+              setDictionaryResult={setDictionaryResult}
+              highlightWord={highlightWord}
+              setHighlightWord={setHighlightWord}
+            />} 
+          />
         </Routes>
       </Router>
-      <FloatingChatButton />
     </>
   );
 }

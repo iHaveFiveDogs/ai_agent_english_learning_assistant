@@ -9,53 +9,34 @@ from services.utiles.print_function_name import log_with_func_name
 from ai_service.chain.chosen_text_chain import *
 
 
-
 async def context_explainer_handle_article(user_context):
-    # Invoke summarizer chain
     try:
         log_with_func_name(" 🧠  context plainer is thinking...")
-        
-        response = context_explainer_chain.invoke({
-            "sentence": user_context
-        })
-
-        
+        response = await context_explainer_chain.ainvoke({"sentence": user_context})
         log_with_func_name(" 🧠  context plainer is done thinking...")
-    # Log the raw response content for debugging
-        response.content = clean_content(response.content)
-        response.content = clean_json_block(response.content)
-        response.content = response.content.replace('\n', '').replace('\r', '').replace('\t', '')
-        response.content = response.content.replace('“', '"').replace('”', '"')  # Smart quotes to straight
 
-        if response.content.count('"sentence"') > 1:
-            print("Warning: Multiple 'sentence' keys found.")
-
-        if response.content.count('{') != response.content.count('}'):
-            print("Warning: Unbalanced braces in JSON content")
-        
-        # Extract JSON content between the first '{' and the last '}'
-        json_start = response.content.find('{')
-        json_end = response.content.rfind('}') + 1
-        json_content = response.content[json_start:json_end]
-        
-         
-        
-        # Clean and validate JSON content
-        json_content = json_content.replace('\n', '').replace('\t', '').replace('\r', '')
-        
-        # Remove trailing commas
-        json_content = json_content.rstrip(', ')
-        # Attempt to fix common JSON issues
-
-        
-    
-        response = fix_and_parse_multiple_json_objects(json_content)
-        if len(response) > 1:
-            print("Warning: Multiple JSON objects found. Using the first one.")
-        response = response[0]
-        return response
+        # Use json_clean utilities for all cleaning and extraction
+        content = clean_content(response.content)
+        json_block = extract_json_from_response(content)
+        if not json_block:
+            raise ValueError("No JSON structure in contextual response")
+        result = await decode_json_with_retry(json_block)
+        if result is not None:
+            return result
+        # Fallback to context_explainer_chain2 if first attempt fails
+        log_with_func_name("[Fallback] Trying context_explainer_chain2...")
+        response2 = await context_explainer_chain2.ainvoke({"sentence": user_context})
+        content2 = clean_content(response2.content)
+        json_block2 = extract_json_from_response(content2)
+        if not json_block2:
+            raise ValueError("No JSON structure in fallback contextual response")
+        result2 = await decode_json_with_retry(json_block2)
+        if result2 is not None:
+            return result2
+        print("[ERROR] Both context_explainer_chain and context_explainer_chain2 failed to produce valid JSON.")
+        log_error(json_block2, Exception("Both chains failed to decode JSON"))
+        return None
     except Exception as e:
         print(f"Failed to decode JSON: {e}")
-        log_error(json_content, e)
+        log_error(user_context, e)
         return None
-    

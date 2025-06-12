@@ -8,7 +8,7 @@ from services.utiles.print_function_name import log_with_func_name
 
 async def if_there_are_summary_summarized(chunk_id, chunks_collection):
     doc = await chunks_collection.find_one({"chunk_id": chunk_id})
-    if doc.get("status", {}).get("summarized") == True:
+    if doc is not None and doc.get("status", {}).get("summarized") == True:
         print("✅ Summarizer already done, skipping.")
         return True
     else:
